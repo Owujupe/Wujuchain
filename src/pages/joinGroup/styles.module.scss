@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1 auto;
+  background: #faf9fa;
+}
+
+.leftSection {
+  padding: 1.25rem 0.75rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: baseline;
+}
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 10.5px;
+  border: 0.26px solid #cdc2d7;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1c5367;
+  background: transparent;
+}
+.rightSection {
+  flex: 0 0 40%;
+  padding: 4.25rem 0rem;
+}
+.title {
+  font-size: 21px;
+  font-weight: 700;
+  color: #241042;
+  line-height: 22px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin: 0;
+  padding-bottom: 1.5rem;
+}
+
+.inputContainer {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.input {
+  flex: 1 auto;
+  border: 0.26px solid #cdc2d7;
+  border-radius: 10.5px;
+  padding: 0.5rem 1rem;
+  height: 3rem !important;
+  justify-content: center;
+  display: flex;
+  &:hover {
+    border: 0.26px solid #7a28ff;
+  }
+  &::placeholder {
+    color: #7c7484;
+  }
+  background-color: transparent;
+  &:not(:placeholder-shown) {
+    background-color: white;
+  }
+
+  &:focus {
+    background-color: white;
+    border: 0.26px solid #7a28ff;
+    box-shadow: 0px 0px 10px 0px rgba(122, 40, 255, 0.2);
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    height: 50px;
+    padding: 0 32px;
+    background: #7a28ff;
+    border: none;
+    border-radius: 10.5px;
+    color: white;
+    font-family: "GT Walsheim", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background: #8c47ff;
+    }
+
+    &:active {
+      background: #6820e0;
+    }
+  }
+}

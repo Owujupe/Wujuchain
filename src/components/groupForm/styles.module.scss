@@ -1,0 +1,178 @@
+.container {
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.input {
+  flex: 1 auto;
+  border: 0.26px solid #cdc2d7;
+  border-radius: 10.5px;
+  padding: 0.5rem 1rem;
+  height: 3rem !important;
+  justify-content: center;
+  display: flex;
+  &:hover {
+    border: 0.26px solid #7a28ff;
+  }
+  &::placeholder {
+    color: #7c7484;
+  }
+  background-color: transparent;
+  &:not(:placeholder-shown) {
+    background-color: white;
+  }
+
+  &:focus {
+    background-color: white;
+    border: 0.26px solid #7a28ff;
+    box-shadow: 0px 0px 10px 0px rgba(122, 40, 255, 0.2);
+  }
+}
+.frequencyContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: 10.5px;
+  border: 0.26px solid #cdc2d7;
+  color: #635c6a;
+  padding: 1rem;
+  font-weight: 400;
+  line-height: 17.5px;
+  letter-spacing: 0.21px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  span {
+    padding-bottom: 0.25rem;
+  }
+}
+.radioGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.radioButton {
+  border-radius: 10.5px;
+  border: 0.8px solid #79747e !important;
+  gap: 0.5rem;
+  color: #1d1b20 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 1.7rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:first-child {
+    border-start-end-radius: 10.5px !important;
+    border-end-end-radius: 10.5px !important;
+  }
+  &:last-child {
+    border-start-start-radius: 10.5px !important;
+    border-end-start-radius: 10.5px !important;
+  }
+}
+.dateContainer {
+  display: flex;
+  gap: 20px; 
+  flex-direction: column;
+  border-radius: 10.5px;
+  border: 0.26px solid #cdc2d7;
+  color: #635c6a;
+  font-weight: 400;
+  line-height: 17.5px;
+  letter-spacing: 0.21px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  .label {
+    padding: 1rem 1rem 0 1rem;
+  }
+}
+.dateInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem 1rem 1rem;
+  border-bottom: 0.26px solid #cdc2d7;
+  p {
+    font-size: 1.5rem;
+    color: #1d1b20;
+    margin: 0;
+    font-weight: 400;
+  }
+}
+.dateField {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+  gap: 8px;
+}
+.label {
+  font-family: "GT Walsheim", sans-serif;
+  font-size: 14px;
+  color: #7c7484;
+}
+.dateFields {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.datePicker {
+  width: 100%;
+  height: 3rem;
+  border: 0.26px solid #cdc2d7;
+  border-radius: 10.5px;
+  background-color: transparent;
+
+  &:hover {
+    border-color: #7a28ff;
+  }
+
+  &:global(.ant-picker-focused),
+  &:focus {
+    background-color: white;
+    border-color: #7a28ff;
+    box-shadow: 0 0 0 2px rgba(122, 40, 255, 0.2);
+  }
+
+  :global(.ant-picker-input) {
+    input {
+      height: 100%;
+      font-family: "GT Walsheim", sans-serif;
+
+      &::placeholder {
+        color: #7c7484;
+      }
+    }
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  button {
+    width: 35%;
+    height: 50px;
+    padding: 0 32px;
+    background: #7a28ff;
+    border: none;
+    border-radius: 10.5px;
+    color: white;
+    font-family: "GT Walsheim", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background: #8c47ff;
+    }
+
+    &:active {
+      background: #6820e0;
+    }
+  }
+}

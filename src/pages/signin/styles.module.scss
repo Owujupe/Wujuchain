@@ -1,0 +1,152 @@
+.container {
+  display: flex;
+  background-image: url("../../../public/images/signin/signin-background-2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #afcbd8;
+  height: 100vh;
+  padding: 2.8rem 4.8rem 0px 4.8rem;
+  position: relative;
+  flex-direction: column;
+}
+.signLabel {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 61px;
+  color: #ffffff;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.innerContainer {
+  display: flex;
+  column-gap: 66px;
+}
+.logo {
+  position: relative;
+  width: 185px;
+  height: 61px;
+  margin-bottom: 26px;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+.leftContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+.leftSigninContainer {
+  background: linear-gradient(180deg, #6dced066 0%, #78d3d566 100%);
+  backdrop-filter: blur(22px);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 75px 92px;
+  flex: 1 1;
+}
+.rightContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+.rightSigninContainer {
+  background: linear-gradient(180deg, #7a28ff1f 0%, #2410421f 100%);
+  backdrop-filter: blur(22px);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  padding: 75px 92px;
+  flex: 1 1;
+}
+
+.blockchainIcon {
+  width: 47px;
+  height: 47px;
+  flex: 1 1;
+  padding-bottom: 32px;
+
+  img {
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+}
+.title {
+  font-size: 2.75rem;
+  font-weight: 400;
+  line-height: 3rem;
+  text-align: left;
+  color: #fff3f3;
+  display: flex;
+  flex: 1;
+}
+.description {
+  color: #fffdfd;
+  padding-top: 22px;
+  line-height: 17px;
+  font-size: 1.03rem;
+  font-weight: 400;
+  line-height: 22.9px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  padding: 20px 2px 0px 2px;
+  margin: 0px;
+  height: 120px;
+}
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  height: 54px;
+  cursor: pointer;
+}
+
+.signButton {
+  background: linear-gradient(#94e4e2, #44cfcc, #07a09cb2);
+  border-radius: 0.75rem;
+  border: none;
+  width: 100%;
+  height: 4.375rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem;
+  gap: 0.625rem;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.joinButton {
+  background: #7a28ff;
+  border-radius: 12px;
+  border: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  gap: 10px;
+  display: flex;
+  height: 70px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
