@@ -1,0 +1,114 @@
+.tableSection {
+  margin-top: 2rem;
+  gap: 20px;
+  margin-bottom: 1rem;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #ffffff;
+
+  .searchBar {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .searchInput {
+      width: 100%;
+      max-width: 400px;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e5e5e5;
+      border-radius: 0.5rem;
+      font-family: "GT Walsheim Pro";
+
+      &::placeholder {
+        color: #8f8f8f;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #7a28ff;
+      }
+    }
+  }
+  .statusBadge {
+    display: inline-block;
+    padding: 6px 0px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    text-align: center;
+    min-width: 80px;
+  }
+
+  .statusPaid {
+    background-color: #dce4e7;
+    color: #1c5367;
+  }
+
+  .statusUnpaid {
+    background-color: #ffd3c2;
+    color: #980000;
+  }
+
+  .statusNext {
+    background-color: #7a28ff;
+    color: #ffffff;
+  }
+
+  .table {
+    width: 100%;
+    border-spacing: 0 10px;
+    border-collapse: separate;
+
+    thead {
+      tr {
+        th {
+          background-color: #f4f3f8;
+          padding: 1rem;
+          text-align: left;
+          font-weight: 400;
+          color: #1a0a3d;
+          font-size: 1rem;
+
+          &:first-child {
+            padding-top: 5px;
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+          }
+
+          &:last-child {
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            text-align: end;
+            padding-right: 2rem;
+          }
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        background-color: #f4f3f8;
+
+        td {
+          padding: 1rem;
+          color: #1a0a3d;
+
+          &:first-child {
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+          }
+
+          &:last-child {
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            text-align: end;
+            padding-top: 6px;
+            padding-bottom: 6px;
+          }
+        }
+      }
+    }
+  }
+}

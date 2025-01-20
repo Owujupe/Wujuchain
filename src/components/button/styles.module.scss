@@ -1,0 +1,20 @@
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #7a28ff;
+  border: 1px solid #7a28ff;
+  border-radius: 10px;
+  padding: 20px;
+  color: #fff;
+  width: 100%;
+  justify-content: center;
+  cursor: pointer;
+}
+.text {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 13.56px;
+  text-align: left;
+  color: #fff;
+}

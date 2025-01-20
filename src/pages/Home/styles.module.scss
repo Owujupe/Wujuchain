@@ -41,7 +41,7 @@
 }
 
 .groupContainer {
-  background-image: url("../../../public/images/dashboard/card-background-1.png"),
+  background-image: url("/images/dashboard/card-background-1.png"),
     linear-gradient(180deg, #ab88f4 0%, #7f49f0 53%, #1a0a3d 100%);
   background-size: cover;
   background-position: center;
@@ -89,7 +89,7 @@
 }
 
 .joinContainer {
-  background-image: url("../../../public/images/dashboard/card-background-2.png"),
+  background-image: url("/public/images/dashboard/card-background-2.png"),
     linear-gradient(180deg, #94e4e2 0%, #44cfcc 53.4%, #07a09c 100%);
   background-size: cover;
   background-position: center;
@@ -129,4 +129,25 @@
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
   }
+}
+
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1001;
 }

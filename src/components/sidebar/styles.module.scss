@@ -3,7 +3,7 @@
   width: 300px;
   background-color: #faf9fa;
   color: #7c7484;
-  background-color: #F4F3F8;
+  background-color: #f4f3f8;
   display: flex;
   flex-direction: column;
   border-right: 0.6px solid #cdc2d7;
@@ -28,14 +28,15 @@
   }
 
   .button {
+  padding: 16px;
     width: 100%;
-    padding: 1.75rem 1.75rem;
+    // padding: 1.75rem 1.75rem;
     text-align: left;
     display: flex;
     align-items: center;
     gap: 10px;
     border: none;
-    background-color: #F4F3F8;
+    background-color: #f4f3f8;
     color: #7c7484;
     font-size: 1.25rem;
     font-weight: 400;
@@ -43,14 +44,19 @@
     line-height: 24.04px;
     letter-spacing: -0.02em;
     text-align: left;
+    cursor: pointer;
     &:not(:last-child) {
       width: 100%;
       margin-bottom: 0rem;
-      padding-bottom: 0px;
+      // padding-bottom: 0px;
       display: flex;
       align-items: center;
       gap: 10px;
       color: #7c7484;
     }
+  }
+  .active {
+    background-color: #ffffff;
+    border-radius: 12px;
   }
 }

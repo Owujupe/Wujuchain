@@ -112,7 +112,6 @@
   gap: 8px;
 }
 .label {
-  font-family: "GT Walsheim", sans-serif;
   font-size: 14px;
   color: #7c7484;
 }
@@ -142,7 +141,6 @@
   :global(.ant-picker-input) {
     input {
       height: 100%;
-      font-family: "GT Walsheim", sans-serif;
 
       &::placeholder {
         color: #7c7484;
@@ -163,7 +161,6 @@
     border: none;
     border-radius: 10.5px;
     color: white;
-    font-family: "GT Walsheim", sans-serif;
     font-size: 16px;
     cursor: pointer;
 
