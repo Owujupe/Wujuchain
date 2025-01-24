@@ -36,8 +36,21 @@ const Sidebar = () => {
             navigate(ROUTES.DASHBOARD);
           }}
         >
-          <img src={IMAGES.DASHBOARD} alt="Dashboard" />
-          <span>Dashboard</span>
+          <img
+            src={` ${
+              activeButton === "dashboard"
+                ? IMAGES.DASHBOARD_ACTIVE
+                : `${IMAGES.DASHBOARD}`
+            }`}
+            alt="Dashboard"
+          />
+          <span
+            className={`${
+              activeButton === "dashboard" ? styles.activeButton : ""
+            }`}
+          >
+            Dashboard
+          </span>
         </button>
         <button
           className={`${styles.button} ${
@@ -48,8 +61,21 @@ const Sidebar = () => {
             navigate(ROUTES.GROUP_DETAILS);
           }}
         >
-          <img src={IMAGES.GROUPS} alt="Groups" />
-          <span>Groups</span>
+          <img
+            src={` ${
+              activeButton === "groups"
+                ? IMAGES.GROUPS_ACTIVE
+                : `${IMAGES.GROUPS}`
+            }`}
+            alt="Groups"
+          />
+          <span
+            className={`${
+              activeButton === "groups" ? styles.activeButton : ""
+            }`}
+          >
+            Groups
+          </span>
         </button>
       </div>
 
@@ -64,8 +90,21 @@ const Sidebar = () => {
             // navigate(ROUTES.SETTINGS);
           }}
         >
-          <img src={IMAGES.SETTINGS} alt="Settings" />
-          <span>Settings</span>
+          <img
+            src={` ${
+              activeButton === "settings"
+                ? IMAGES.SETTINGS_ACTIVE
+                : `${IMAGES.SETTINGS}`
+            }`}
+            alt="Settings"
+          />
+          <span
+            className={`${
+              activeButton === "settings" ? styles.activeButton : ""
+            }`}
+          >
+            Settings
+          </span>
         </button>
       </div>
     </div>

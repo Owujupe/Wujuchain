@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 
@@ -8,7 +8,22 @@ const Header = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const dropdownRef = useRef(null); // Add ref for dropdown
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup listener on unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <header className={styles.header}>
       <div className={styles.searchContainer}>
@@ -23,10 +38,9 @@ const Header = () => {
       <div className={styles.rightSection}>
         <div className={styles.notificationIcon}>
           <img src={IMAGES.NOTIFICATION} alt="Notification" />
-          {/* <span className={styles.badge}>3</span> */}
         </div>
 
-        <div className={styles.profileSection}>
+        <div className={styles.profileSection} ref={dropdownRef}>
           <img
             src={IMAGES.AVATAR}
             alt="Profile"

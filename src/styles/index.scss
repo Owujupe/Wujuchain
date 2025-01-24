@@ -100,8 +100,8 @@ a {
 .ant-web3-connect-modal-footer {
   border: 0px !important;
 }
-.ant-web3-connect-modal-footer-container{
-  &::before{
+.ant-web3-connect-modal-footer-container {
+  &::before {
     background-image: none !important;
   }
 }
@@ -123,12 +123,7 @@ a {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5rem;
-  // &:hover{
-  //   span{
-  //     color: #ffffff !important;
-  //   }
-  // }
-
+ 
   span {
     margin: 0px !important;
   }
@@ -150,4 +145,94 @@ a {
       color: #fff !important;
     }
   }
+}
+.ant-select-selector {
+  border: 0.26px solid #cdc2d7;
+  border-radius: 10.5px !important;
+  padding: 0.5rem 1rem !important;
+  height: 3rem !important;
+  justify-content: center;
+  display: flex;
+  background: #faf9fa !important;
+  &:hover {
+    border: 0.26px solid #7a28ff;
+    background: #ffffff !important;
+    border-color: #7a28ff !important;
+  }
+  &::placeholder {
+    color: #7c7484;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  &:not(:placeholder-shown) {
+    background-color: white;
+  }
+  &:focus {
+    background-color: white !important;
+    border: 0.26px solid #7a28ff !important;
+    box-shadow: 0px 0px 10px 0px rgba(122, 40, 255, 0.2) !important;
+  }
+}
+
+.ant-picker-panel {
+  border: none !important;
+  .ant-picker-body {
+    padding: 1rem !important;
+  }
+  .ant-picker-cell-inner {
+    border-radius: 10px !important;
+    border: 0.5px solid #cdc2d7;
+    padding: 0.2rem 0.7rem;
+    height: auto !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    &::before {
+      border: none !important;
+    }
+  }
+  .ant-picker-content td {
+    padding: 6px !important;
+  }
+  .ant-picker-cell-selected {
+    .ant-picker-cell-inner {
+      background: #7a28ff !important;
+      color: #fff !important;
+      border: none !important;
+    }
+  }
+}
+.Toastify__toast {
+  align-items: center !important;
+  padding: 0px 8px 0px 8px !important;
+  width: fit-content !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  box-shadow: 0px 1px 3px 0px #0000004d;
+  border-radius: 20px !important;
+  box-shadow: 0px 4px 8px 3px #00000026;
+}
+.Toastify__toast-container {
+  display: flex !important;
+}
+.Toastify__toast-body {
+  margin: auto 12px auto 0px !important;
+}
+
+.Toastify__close-button {
+  position: relative !important;
+  align-self: center !important;
+  top: 0px !important;
+  right: 0px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important  ;
+}
+
+.Toastify__toast-icon {
+  margin-inline-end: 0px !important;
+  width: 16px !important;
+  flex-shrink: 0;
+  display: flex;
 }
