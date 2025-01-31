@@ -11,6 +11,12 @@ contract Crowdfunding {
     uint256 public groupSize;
     mapping(address => bool) public groupMembers;
     uint256 public memberCount;
+    uint256 public cycle;
+    address private admit;
+    mapping(address => uint256) public withdrawDate;
+    uint256 public period;
+    mapping(address => mapping(uint256 => bool)) public cycleCompleted;
+
     
     
 
@@ -19,7 +25,8 @@ contract Crowdfunding {
         string memory _description,
         uint256 _goal,
         uint256 _duraytionInDays,
-        uint256 _groupSize
+        uint256 _groupSize,
+        address _admit
     ) {
         require(_groupSize>0, "Group size must be greater than 0");
         groupname = _groupname;
@@ -30,6 +37,9 @@ contract Crowdfunding {
         groupSize = _groupSize;
         groupMembers[msg.sender] =true;
         memberCount = 1;
+        period = _duraytionInDays * 1 days;
+        cycle = 1;
+        admit = _admit;
     }
 
     modifier onlyGroupMember() {
@@ -40,22 +50,35 @@ contract Crowdfunding {
         require(msg.sender == owner, "Only the owner can perform this action");
         _;
     }
+    modifier onlyAdmit() {
+        require(msg.sender == admit, "Only admit can access this!");
+        _;
+    }
 
     function fund() public payable onlyGroupMember{
         require(msg.value > 0, "The deposition should be greater than 0." );
+        require(!cycleCompleted[msg.sender][cycle], "Already funded");
         require(block.timestamp < deadline, "The Current Cycle has ended");
+        require(cycle <= groupSize, "All cycles are ended.");
+        cycleCompleted[msg.sender][cycle] = true;
     }
 
-    function withdraw() public onlyGroupMember{
+    function withdraw(address _withdrawMember) public onlyAdmit{
         require(address(this).balance >= goal, "Goal had not been reached");
-
+        require(groupMembers[_withdrawMember], "This is not a Group member!");
         uint256 balance = address(this).balance;
         require(balance > 0, "No balance to withdraw");
-        payable(owner).transfer(balance);
+        payable(_withdrawMember).transfer(balance);
+        deadline = deadline + period;
+        cycle++;
     }
 
     function getContractBalance() public view returns (uint256) {
         return address(this).balance;
+    }
+
+    function getMemberCycleStatus(uint256 _cycle) public view returns (bool) {
+        return cycleCompleted[msg.sender][_cycle];
     }
 
     function addGroupMember(address _newMember) public {
