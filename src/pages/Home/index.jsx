@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/routes";
 import ConnectModal from "../../components/connectModal";
+import { useAccount } from "@ant-design/web3";
 
 const Home = () => {
   const navigate = useNavigate();
   const [showWalletModal, setShowWalletModal] = useState(true);
+  const { account } = useAccount();
 
   return (
     <>
@@ -53,9 +55,10 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {showWalletModal && (
-        <ConnectModal open={showWalletModal} setOpen={setShowWalletModal} />
-      )}
+      {showWalletModal &&
+        !account?.address &&(
+          <ConnectModal open={showWalletModal} setOpen={setShowWalletModal} />
+        )}
     </>
   );
 };

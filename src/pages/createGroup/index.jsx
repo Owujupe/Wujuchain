@@ -27,10 +27,10 @@ const CreateGroup = () => {
     const isFormComplete =
       createGroup.groupName.trim() !== "" &&
       createGroup.groupPurpose.trim() !== "" &&
-      createGroup.groupSize.trim() !== "" &&
+      createGroup.groupSize !== "" &&
       createGroup.frequency.trim() !== "" &&
       createGroup.startDate !== "" &&
-      createGroup.amount.trim() !== "";
+      createGroup.amount !== "";
 
     if (isFormComplete) {
       setModalOpenCreate(true);

@@ -12,7 +12,7 @@ export const PrivateLayout = ({ isLoggedIn }) => {
         <div className="content-wraper">
           <Header />
           <div className="scrollable-content">
-          <Outlet />
+            <Outlet />
           </div>
         </div>
       </div>

@@ -123,7 +123,7 @@ a {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5rem;
- 
+
   span {
     margin: 0px !important;
   }
@@ -235,4 +235,9 @@ a {
   width: 16px !important;
   flex-shrink: 0;
   display: flex;
+}
+.ant-web3-connect-modal-wallet-item {
+  .ant-space-item {
+    display: none !important;
+  }
 }

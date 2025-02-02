@@ -4,7 +4,6 @@ import theme from "./theme/themeConfig";
 import "./styles/index.scss";
 import Router from "./router";
 import { ToastContainer, Slide } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 
 const toastConfig = {

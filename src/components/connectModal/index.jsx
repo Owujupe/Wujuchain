@@ -1,14 +1,27 @@
-import React from "react";
-import { ConnectModal as Modal } from "@ant-design/web3";
-import {
-  metadata_CoinbaseWallet,
-  metadata_MetaMask,
-} from "@ant-design/web3-assets";
+import React, { useEffect } from "react";
+import { ConnectButton, Connector } from "@ant-design/web3";
 import styles from "./styles.module.scss";
+import {
+  WagmiWeb3ConfigProvider,
+  MetaMask,
+  CoinbaseWallet,
+} from "@ant-design/web3-wagmi";
+import { createConfig, http } from "wagmi";
+import {
+  arbitrum,
+  mainnet,
+  optimism,
+  polygon,
+  sepolia,
+  mintSepoliaTestnet,
+  baseSepolia,
+} from "wagmi/chains";
+import { injected } from "wagmi/connectors";
 
 const Title = () => {
   return <span className={styles.header}>Connect Wallet</span>;
 };
+
 const Footer = () => {
   return (
     <div className={styles.modalFooter}>
@@ -21,21 +34,56 @@ const Footer = () => {
     </div>
   );
 };
+
 const ConnectModal = ({ open, setOpen, groupOrder, ...props }) => {
-  const walletList = [metadata_MetaMask, metadata_CoinbaseWallet];
+  
+  const config = createConfig({
+    chains: [sepolia],
+    transports: {
+      // [mainnet.id]: http(),
+      // [polygon.id]: http(),
+      // [arbitrum.id]: http(),
+      // [optimism.id]: http(),
+      [sepolia.id]: http(),
+    },
+    connectors: [
+      injected({
+        target: "metaMask",
+      }),
+    ],
+  });
   return (
-    <Modal
-      title={<Title />}
-      open={open}
-      onCancel={() => setOpen(false)}
-      mode="simple"
-      group={false}
-      walletList={walletList}
-      maskClosable={false}
-      {...props}
-      footer={<Footer />}
-      guide={false}
-    />
+    <WagmiWeb3ConfigProvider
+      config={config}
+      eip6963={{
+        reconnectPreviousSession: true,
+      }}
+      wallets={[MetaMask(), CoinbaseWallet()]}
+      chains={[sepolia]}
+    >
+      <Connector
+        children
+        modalProps={{
+          title: <Title />,
+          open: open,
+          onCancel: () => setOpen(false),
+          mode: "simple",
+          group: false,
+          maskClosable: false,
+          footer: <Footer />,
+          guide: false,
+        }}
+        onConnected={(account) => {
+          setOpen(false);
+        }}
+        onDisconnect={(data) => {
+          data?.preventDefault?.();
+          console.log(data, "Disconnected");
+        }}
+      >
+        <ConnectButton style={{ display: "none" }} />
+      </Connector>
+    </WagmiWeb3ConfigProvider>
   );
 };
 

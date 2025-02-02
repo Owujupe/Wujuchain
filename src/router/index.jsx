@@ -56,6 +56,7 @@ const Router = () => {
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
+    // </WagmiWeb3ConfigProvider>
   );
 };
 
