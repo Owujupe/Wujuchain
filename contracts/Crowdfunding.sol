@@ -16,8 +16,7 @@ contract Crowdfunding {
     mapping(address => uint256) public withdrawDate;
     uint256 public period;
     mapping(address => mapping(uint256 => bool)) public cycleCompleted;
-
-    
+    uint256 public paidcounter;
     
 
     constructor(
@@ -61,9 +60,16 @@ contract Crowdfunding {
         require(block.timestamp < deadline, "The Current Cycle has ended");
         require(cycle <= groupSize, "All cycles are ended.");
         cycleCompleted[msg.sender][cycle] = true;
+        paidcounter ++;
+        //
+        if (paidcounter == groupSize) {
+            withdraw(_withdrawMember);
+            paidcounter=0;
+        } 
+        
     }
 
-    function withdraw(address _withdrawMember) public onlyAdmit{
+    function withdraw(address _withdrawMember) public onlyGroupMember{
         require(address(this).balance >= goal, "Goal had not been reached");
         require(groupMembers[_withdrawMember], "This is not a Group member!");
         uint256 balance = address(this).balance;
