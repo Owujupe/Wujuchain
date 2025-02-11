@@ -37,6 +37,7 @@ contract CrowdfundingFactory {
         uint256 _goal,
         uint256 _durationInDays,
         uint256 _groupsize
+        address admit
     ) external notPaused {
         Crowdfunding newCampaign = new Crowdfunding (
             msg.sender,
@@ -44,7 +45,8 @@ contract CrowdfundingFactory {
             _description,
             _goal,
             _durationInDays,
-            _groupsize
+            _groupsize,
+            _admit
         );
         address campaignAddress = address(newCampaign);
         Campaign memory campaign = Campaign({

@@ -17,9 +17,12 @@ contract Crowdfunding {
     uint256 public period;
     mapping(address => mapping(uint256 => bool)) public cycleCompleted;
     uint256 public paidcounter;
+    mapping(address=>uint256) public paidoutorder;
+    uint256 public order;
     
 
     constructor(
+        address _owner
         string memory _groupname,
         string memory _description,
         uint256 _goal,
@@ -28,17 +31,20 @@ contract Crowdfunding {
         address _admit
     ) {
         require(_groupSize>0, "Group size must be greater than 0");
+        owner = _owner;
         groupname = _groupname;
         description = _description;
         goal=_goal;
         deadline = block.timestamp + (_duraytionInDays * 1 days);
-        owner = msg.sender;
         groupSize = _groupSize;
-        groupMembers[msg.sender] =true;
+        admit = _admit;
+        groupMembers[_owner] = true ;
+        paidoutorder[_owner] = 1;
         memberCount = 1;
         period = _duraytionInDays * 1 days;
         cycle = 1;
-        admit = _admit;
+        order = 2;
+
     }
 
     modifier onlyGroupMember() {
@@ -61,7 +67,7 @@ contract Crowdfunding {
         require(cycle <= groupSize, "All cycles are ended.");
         cycleCompleted[msg.sender][cycle] = true;
         paidcounter ++;
-        //
+        //Auto Withdraw //Reserved for modification
         if (paidcounter == groupSize) {
             withdraw(_withdrawMember);
             paidcounter=0;
@@ -93,6 +99,8 @@ contract Crowdfunding {
         require(memberCount < groupSize, "Group size limit reached");
 
         groupMembers[_newMember] = true;
+        paidoutorder[_newMember] = order;
+        order++;
         memberCount++;
     }
 
