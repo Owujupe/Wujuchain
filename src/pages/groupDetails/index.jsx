@@ -6,6 +6,12 @@ import CashFlow from "../../components/cashFlow";
 import Table from "../../components/table";
 
 const GroupDetails = () => {
+  const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
+const firstTableData = [
+  { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
+  { "S/N": 2, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "unpaid" },
+  { "S/N": 3, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "next" },
+];
   return (
     <div className={styles.groups}>
       <div className={styles.titleContainer}>
@@ -15,7 +21,7 @@ const GroupDetails = () => {
 
       <Balance />
       <CashFlow />
-      <Table />
+      <Table headers={firstTableHeaders} data={firstTableData}  />
     </div>
   );
 };

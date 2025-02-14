@@ -2,14 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { WagmiProvider } from "wagmi";
 import { WagmiWeb3ConfigProvider } from "@ant-design/web3-wagmi";
-import { sepolia } from "wagmi/chains";
-import { createConfig,http } from "wagmi";
+import { mainnet, sepolia } from "wagmi/chains";
+import { createConfig, http } from "wagmi";
 import { injected } from "wagmi";
+import { WagmiProvider } from "wagmi";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const config = createConfig({
-  chains: [sepolia],
+  chains: [sepolia,mainnet],
   transports: {
     // [mainnet.id]: http(),
     // [polygon.id]: http(),
@@ -23,11 +25,15 @@ const config = createConfig({
     }),
   ],
 });
+const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
-    <WagmiWeb3ConfigProvider config={config}>
-      <App />
-    </WagmiWeb3ConfigProvider>
+    <QueryClientProvider client={queryClient}>
+      {" "}
+      <WagmiProvider config={config}>
+        <App />
+      </WagmiProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

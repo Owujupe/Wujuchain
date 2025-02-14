@@ -16,7 +16,8 @@ import {
   mintSepoliaTestnet,
   baseSepolia,
 } from "wagmi/chains";
-import { injected } from "wagmi/connectors";
+import { coinbaseWallet, injected, metaMask } from "wagmi/connectors";
+import { useConnect } from "wagmi";
 
 const Title = () => {
   return <span className={styles.header}>Connect Wallet</span>;
@@ -35,31 +36,47 @@ const Footer = () => {
   );
 };
 
-const ConnectModal = ({ open, setOpen, groupOrder, ...props }) => {
-  
+const ConnectModal = ({ open, setOpen, groupOrder, disconnect, ...props }) => {
   const config = createConfig({
-    chains: [sepolia],
+    chains: [sepolia, mainnet],
     transports: {
-      // [mainnet.id]: http(),
-      // [polygon.id]: http(),
-      // [arbitrum.id]: http(),
-      // [optimism.id]: http(),
       [sepolia.id]: http(),
     },
     connectors: [
       injected({
-        target: "metaMask",
+        target: "metaMask", // Targets MetaMask specifically
       }),
     ],
   });
+  const { connect, isConnected, error } = useConnect();
+
+  const connectWallet = async () => {
+    try {
+      if (window.ethereum) {
+        await window.ethereum.request({
+          method: "wallet_requestPermissions",
+          params: [{ eth_accounts: {} }],
+        });
+        console.log("Permissions granted.");
+      }
+      // Then connect using wagmi's connect
+      await connect(); // Assuming connect() is the method to connect the wallet
+    } catch (error) {
+      console.error("Connection failed, retrying...", error);
+    }
+  };
   return (
     <WagmiWeb3ConfigProvider
       config={config}
-      eip6963={{
-        reconnectPreviousSession: true,
-      }}
+      eip6963={
+        {
+          // reconnectPreviousSession: true,
+        }
+      }
+      // ens
       wallets={[MetaMask(), CoinbaseWallet()]}
-      chains={[sepolia]}
+      chains={[sepolia, mainnet]}
+      // reconnectOnMount
     >
       <Connector
         children
@@ -72,13 +89,15 @@ const ConnectModal = ({ open, setOpen, groupOrder, ...props }) => {
           maskClosable: false,
           footer: <Footer />,
           guide: false,
+          closable: false,
         }}
         onConnected={(account) => {
           setOpen(false);
         }}
         onDisconnect={(data) => {
           data?.preventDefault?.();
-          console.log(data, "Disconnected");
+
+          // disconnect?.(); // Call the disconnect function
         }}
       >
         <ConnectButton style={{ display: "none" }} />

@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 import { ROUTES } from "../../router/routes";
-
-const Sidebar = () => {
+import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "../../constants";
+const Sidebar = ({ routeName }) => {
   const navigate = useNavigate();
-  const [activeButton, setActiveButton] = useState(null);
-
-  const handleClick = (buttonId) => {
-    setActiveButton(buttonId);
-  };
 
   return (
     <div className={styles.sidebar}>
@@ -19,7 +14,6 @@ const Sidebar = () => {
         className={styles.logoSection}
         onClick={() => {
           navigate(ROUTES.APP);
-          setActiveButton(null);
         }}
       >
         <img src={IMAGES.LOGO} alt="Logo" />
@@ -27,85 +21,46 @@ const Sidebar = () => {
 
       {/* Main Navigation */}
       <div className={styles.mainNav}>
-        <button
-          className={`${styles.button} ${
-            activeButton === "dashboard" ? styles.active : ""
-          }`}
-          onClick={() => {
-            handleClick("dashboard");
-            navigate(ROUTES.DASHBOARD);
-          }}
-        >
-          <img
-            src={` ${
-              activeButton === "dashboard"
-                ? IMAGES.DASHBOARD_ACTIVE
-                : `${IMAGES.DASHBOARD}`
+        {NAV_ITEMS.map(({ name, route, image, activeImage }) => (
+          <button
+            key={`main-${route}`}
+            className={`${styles.button} ${
+              routeName === route ? styles.active : ""
             }`}
-            alt="Dashboard"
-          />
-          <span
-            className={`${
-              activeButton === "dashboard" ? styles.activeButton : ""
-            }`}
+            onClick={() => {
+              navigate(route);
+            }}
           >
-            Dashboard
-          </span>
-        </button>
-        <button
-          className={`${styles.button} ${
-            activeButton === "groups" ? styles.active : ""
-          }`}
-          onClick={() => {
-            handleClick("groups");
-            navigate(ROUTES.GROUP_DETAILS);
-          }}
-        >
-          <img
-            src={` ${
-              activeButton === "groups"
-                ? IMAGES.GROUPS_ACTIVE
-                : `${IMAGES.GROUPS}`
-            }`}
-            alt="Groups"
-          />
-          <span
-            className={`${
-              activeButton === "groups" ? styles.activeButton : ""
-            }`}
-          >
-            Groups
-          </span>
-        </button>
+            <img src={routeName === route ? activeImage : image} alt={name} />
+            <span
+              className={`${routeName === route ? styles.activeButton : ""}`}
+            >
+              {name}
+            </span>
+          </button>
+        ))}
       </div>
 
-      {/* Bottom Buttons */}
+      {/* Bottom Navigation Section (Settings) */}
       <div className={styles.bottomSection}>
-        <button
-          className={`${styles.button} ${
-            activeButton === "settings" ? styles.active : ""
-          }`}
-          onClick={() => {
-            handleClick("settings");
-            // navigate(ROUTES.SETTINGS);
-          }}
-        >
-          <img
-            src={` ${
-              activeButton === "settings"
-                ? IMAGES.SETTINGS_ACTIVE
-                : `${IMAGES.SETTINGS}`
+        {BOTTOM_NAV_ITEMS.map(({ name, route, image, activeImage }) => (
+          <button
+            key={`bottom-${route}`}
+            className={`${styles.button} ${
+              routeName === route ? styles.active : ""
             }`}
-            alt="Settings"
-          />
-          <span
-            className={`${
-              activeButton === "settings" ? styles.activeButton : ""
-            }`}
+            onClick={() => {
+              navigate(route);
+            }}
           >
-            Settings
-          </span>
-        </button>
+            <img src={routeName === route ? activeImage : image} alt={name} />
+            <span
+              className={`${routeName === route ? styles.activeButton : ""}`}
+            >
+              {name}
+            </span>
+          </button>
+        ))}
       </div>
     </div>
   );

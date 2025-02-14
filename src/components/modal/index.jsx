@@ -16,6 +16,7 @@ const ModalComponent = ({
   confirmButtonText,
   cancelButtonText,
   children,
+  closeIcon = false,
 }) => {
   const Title = () => {
     return <p className={styles.modalTitle}>{title}</p>;
@@ -43,12 +44,12 @@ const ModalComponent = ({
                 />{" "}
               </span>
             )}
-            {confirmButtonText}
+            {confirmButtonText ? confirmButtonText : "Confirm"}
           </Button>
         )}
         {onCancel && (
           <Button className={styles.modalCancelButton} onClick={onCancel}>
-            {cancelButtonText}
+            {cancelButtonText ? cancelButtonText : "Cancel"}
           </Button>
         )}
       </div>
@@ -63,7 +64,7 @@ const ModalComponent = ({
       onOk={onConfirm}
       onCancel={onCancel}
       width={400}
-      closeIcon={null}
+      closeIcon={closeIcon}
       footer={<Footer />}
       maskClosable={false}
     >
