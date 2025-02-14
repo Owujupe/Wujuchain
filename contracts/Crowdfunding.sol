@@ -16,10 +16,11 @@ contract Crowdfunding {
     mapping(address => uint256) public withdrawDate;
     uint256 public period;
     mapping(address => mapping(uint256 => bool)) public cycleCompleted;
+    mapping(address => mapping(uint256 => uint256)) public cycleContribution;
     uint256 public paidcounter;
     mapping(uint256=>address) public paidoutorder;
     uint256 public order;
-    
+    address [] public keys;
 
     constructor(
         address _owner,
@@ -44,7 +45,6 @@ contract Crowdfunding {
         period = _duraytionInDays * 1 days;
         cycle = 1;
         order = 2;
-
     }
 
     modifier onlyGroupMember() {
@@ -67,6 +67,8 @@ contract Crowdfunding {
         require(cycle <= groupSize, "All cycles are ended.");
         cycleCompleted[msg.sender][cycle] = true;
         paidcounter ++;
+        cycleContribution[msg.sender][cycle]=msg.value;
+        keys.push(msg.sender);
         //Auto Withdraw //Reserved for modification
         if (paidcounter == groupSize) {
             withdraw(paidoutorder[cycle]);
@@ -83,6 +85,7 @@ contract Crowdfunding {
         payable(_withdrawMember).transfer(balance);
         deadline = deadline + period;
         cycle++;
+        delete keys;
     }
 
     function getContractBalance() public view returns (uint256) {
@@ -109,5 +112,12 @@ contract Crowdfunding {
         require(memberCount >1 , "At least 1 member is required");
         groupMembers[_removemMember] = false;
         memberCount--;
+    }
+
+    function resolveCycle() public onlyAdmit {
+        require(block.timestamp >= deadline, "The Current Cycle has not ended yet.");
+        for (uint256 i = 0; i<keys.length;i++) {
+            payable(keys[i]).transfer(cycleContribution[keys[i]][cycle]);
+        }
     }
 }
