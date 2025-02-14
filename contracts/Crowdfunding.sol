@@ -114,10 +114,18 @@ contract Crowdfunding {
         memberCount--;
     }
 
+    function isKeysArrayEmpty() public view returns (bool) {
+        return keys.length == 0;
+    }
     function resolveCycle() public onlyAdmit {
         require(block.timestamp >= deadline, "The Current Cycle has not ended yet.");
-        for (uint256 i = 0; i<keys.length;i++) {
-            payable(keys[i]).transfer(cycleContribution[keys[i]][cycle]);
+        if (isKeysArrayEmpty()){
+            deadline = deadline + period;
+        }else{
+            for (uint256 i = 0; i<keys.length;i++) {
+                payable(keys[i]).transfer(cycleContribution[keys[i]][cycle]);
+            }
+            deadline = deadline + period;
         }
     }
 }
