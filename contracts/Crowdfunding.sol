@@ -17,12 +17,12 @@ contract Crowdfunding {
     uint256 public period;
     mapping(address => mapping(uint256 => bool)) public cycleCompleted;
     uint256 public paidcounter;
-    mapping(address=>uint256) public paidoutorder;
+    mapping(uint256=>address) public paidoutorder;
     uint256 public order;
     
 
     constructor(
-        address _owner
+        address _owner,
         string memory _groupname,
         string memory _description,
         uint256 _goal,
@@ -39,7 +39,7 @@ contract Crowdfunding {
         groupSize = _groupSize;
         admit = _admit;
         groupMembers[_owner] = true ;
-        paidoutorder[_owner] = 1;
+        paidoutorder[1] = _owner;
         memberCount = 1;
         period = _duraytionInDays * 1 days;
         cycle = 1;
@@ -69,7 +69,7 @@ contract Crowdfunding {
         paidcounter ++;
         //Auto Withdraw //Reserved for modification
         if (paidcounter == groupSize) {
-            withdraw(_withdrawMember);
+            withdraw(paidoutorder[cycle]);
             paidcounter=0;
         } 
         
@@ -97,9 +97,8 @@ contract Crowdfunding {
         require(_newMember != address(0), "Invalid address");
         require(!groupMembers[_newMember], "Address is already a member");
         require(memberCount < groupSize, "Group size limit reached");
-
         groupMembers[_newMember] = true;
-        paidoutorder[_newMember] = order;
+        paidoutorder[order] = _newMember;
         order++;
         memberCount++;
     }
