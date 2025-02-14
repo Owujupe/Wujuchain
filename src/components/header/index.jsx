@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 import { Address, ConnectButton } from "@ant-design/web3";
 import { WagmiWeb3ConfigProvider } from "@ant-design/web3-wagmi";
-import { mainnet, sepolia, polygon, arbitrum, optimism } from "wagmi/chains";
+import { polygon, polygonAmoy } from "wagmi/chains";
 import {
   useBalance,
   useDisconnect,
@@ -18,15 +18,16 @@ import ModalComponent from "../modal";
 import ConnectModal from "../connectModal";
 
 const Header = ({ setIsLoggedIn }) => {
+  
   const config = createConfig({
-    chains: [mainnet, sepolia],
+    chains: [polygon, polygonAmoy],
     connectors: [metaMask(), coinbaseWallet()],
     transports: {
-      [mainnet.id]: http(),
-      [sepolia.id]: http(),
+      [polygonAmoy.id]: http(),
+      [polygon.id]: http(),
     },
   });
-  const { address, isConnected, isConnecting, isDisconnected } = useAccount();
+  const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -76,7 +77,6 @@ const Header = ({ setIsLoggedIn }) => {
   if (isError) {
     console.error("Balance Fetch Error:", isError, error);
   }
-
 
   return (
     <>

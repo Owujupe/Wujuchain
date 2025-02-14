@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { WagmiWeb3ConfigProvider } from "@ant-design/web3-wagmi";
-import { mainnet, sepolia } from "wagmi/chains";
+import { mainnet, sepolia, polygonAmoy, polygon } from "wagmi/chains";
 import { createConfig, http } from "wagmi";
 import { injected } from "wagmi";
 import { WagmiProvider } from "wagmi";
@@ -11,13 +11,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const config = createConfig({
-  chains: [sepolia,mainnet],
+  chains: [polygonAmoy, polygon],
   transports: {
-    // [mainnet.id]: http(),
-    // [polygon.id]: http(),
-    // [arbitrum.id]: http(),
-    // [optimism.id]: http(),
-    [sepolia.id]: http(),
+    [polygon.id]: http(),
+   
+    [polygonAmoy.id]: http(),
   },
   connectors: [
     injected({

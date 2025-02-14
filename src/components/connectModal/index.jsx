@@ -7,15 +7,7 @@ import {
   CoinbaseWallet,
 } from "@ant-design/web3-wagmi";
 import { createConfig, http } from "wagmi";
-import {
-  arbitrum,
-  mainnet,
-  optimism,
-  polygon,
-  sepolia,
-  mintSepoliaTestnet,
-  baseSepolia,
-} from "wagmi/chains";
+import { polygon, polygonAmoy } from "wagmi/chains";
 import { coinbaseWallet, injected, metaMask } from "wagmi/connectors";
 import { useConnect } from "wagmi";
 
@@ -38,33 +30,19 @@ const Footer = () => {
 
 const ConnectModal = ({ open, setOpen, groupOrder, disconnect, ...props }) => {
   const config = createConfig({
-    chains: [sepolia, mainnet],
+    chains: [polygonAmoy, polygon],
     transports: {
-      [sepolia.id]: http(),
+      [polygon.id]: http(),
+      [polygonAmoy.id]: http(),
     },
     connectors: [
       injected({
-        target: "metaMask", // Targets MetaMask specifically
+        target: "metaMask",
       }),
     ],
   });
-  const { connect, isConnected, error } = useConnect();
+  
 
-  const connectWallet = async () => {
-    try {
-      if (window.ethereum) {
-        await window.ethereum.request({
-          method: "wallet_requestPermissions",
-          params: [{ eth_accounts: {} }],
-        });
-        console.log("Permissions granted.");
-      }
-      // Then connect using wagmi's connect
-      await connect(); // Assuming connect() is the method to connect the wallet
-    } catch (error) {
-      console.error("Connection failed, retrying...", error);
-    }
-  };
   return (
     <WagmiWeb3ConfigProvider
       config={config}
@@ -75,7 +53,7 @@ const ConnectModal = ({ open, setOpen, groupOrder, disconnect, ...props }) => {
       }
       // ens
       wallets={[MetaMask(), CoinbaseWallet()]}
-      chains={[sepolia, mainnet]}
+      chains={[polygonAmoy, polygon]}
       // reconnectOnMount
     >
       <Connector
