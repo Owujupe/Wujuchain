@@ -7,16 +7,9 @@ import {
   CoinbaseWallet,
 } from "@ant-design/web3-wagmi";
 import { createConfig, http } from "wagmi";
-import {
-  arbitrum,
-  mainnet,
-  optimism,
-  polygon,
-  sepolia,
-  mintSepoliaTestnet,
-  baseSepolia,
-} from "wagmi/chains";
-import { injected } from "wagmi/connectors";
+import { polygon, polygonAmoy } from "wagmi/chains";
+import { coinbaseWallet, injected, metaMask } from "wagmi/connectors";
+import { useConnect } from "wagmi";
 
 const Title = () => {
   return <span className={styles.header}>Connect Wallet</span>;
@@ -35,16 +28,12 @@ const Footer = () => {
   );
 };
 
-const ConnectModal = ({ open, setOpen, groupOrder, ...props }) => {
-  
+const ConnectModal = ({ open, setOpen, groupOrder, disconnect, ...props }) => {
   const config = createConfig({
-    chains: [sepolia],
+    chains: [polygonAmoy, polygon],
     transports: {
-      // [mainnet.id]: http(),
-      // [polygon.id]: http(),
-      // [arbitrum.id]: http(),
-      // [optimism.id]: http(),
-      [sepolia.id]: http(),
+      [polygon.id]: http(),
+      [polygonAmoy.id]: http(),
     },
     connectors: [
       injected({
@@ -52,14 +41,20 @@ const ConnectModal = ({ open, setOpen, groupOrder, ...props }) => {
       }),
     ],
   });
+  
+
   return (
     <WagmiWeb3ConfigProvider
       config={config}
-      eip6963={{
-        reconnectPreviousSession: true,
-      }}
+      eip6963={
+        {
+          // reconnectPreviousSession: true,
+        }
+      }
+      // ens
       wallets={[MetaMask(), CoinbaseWallet()]}
-      chains={[sepolia]}
+      chains={[polygonAmoy, polygon]}
+      // reconnectOnMount
     >
       <Connector
         children
@@ -72,13 +67,15 @@ const ConnectModal = ({ open, setOpen, groupOrder, ...props }) => {
           maskClosable: false,
           footer: <Footer />,
           guide: false,
+          closable: false,
         }}
         onConnected={(account) => {
           setOpen(false);
         }}
         onDisconnect={(data) => {
           data?.preventDefault?.();
-          console.log(data, "Disconnected");
+
+          // disconnect?.(); // Call the disconnect function
         }}
       >
         <ConnectButton style={{ display: "none" }} />

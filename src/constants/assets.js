@@ -35,4 +35,9 @@ export const IMAGES = {
   NEXT_ICON: "/images/calendar/next-icon.svg",
   PREV_ICON: "/images/calendar/prev-icon.svg",
   SHS_GROUP: "/images/shs-group.png",
+  JOIN_GROUP_ACTIVE: "/images/sidebar/join-group-active.svg",
+  JOIN_GROUP: "/images/sidebar/join-group.svg",
+  ADMIN_ICON: "/images/sidebar/admin.png",
+  ADMIN_ACTIVE_ICON: "/images/sidebar/admin-active.png"
+
 };

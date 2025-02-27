@@ -14,6 +14,7 @@ const toastConfig = {
 };
 
 function App() {
+  
   return (
     <ConfigProvider theme={theme}>
       <Router />

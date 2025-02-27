@@ -4,12 +4,18 @@ import { IMAGES } from "../../constants/assets";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/routes";
 import ConnectModal from "../../components/connectModal";
-import { useAccount } from "@ant-design/web3";
-
+import {
+  useBalance,
+  useDisconnect,
+  useConnect,
+  useAccount,
+  useChainId,
+  http,
+} from "wagmi";
 const Home = () => {
   const navigate = useNavigate();
   const [showWalletModal, setShowWalletModal] = useState(true);
-  const { account } = useAccount();
+  const { address, isConnected, isConnecting, isDisconnected } = useAccount();
 
   return (
     <>
@@ -55,10 +61,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {showWalletModal &&
-        !account?.address &&(
-          <ConnectModal open={showWalletModal} setOpen={setShowWalletModal} />
-        )}
+      {showWalletModal && !address && (
+        <ConnectModal open={showWalletModal} setOpen={setShowWalletModal} />
+      )}
     </>
   );
 };

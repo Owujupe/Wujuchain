@@ -7,7 +7,7 @@ const Button = ({ icon, text, buttonStyle, textStyle, onClick }) => {
       className={`${styles.buttonContainer} ${buttonStyle}`}
       onClick={onClick}
     >
-      <img src={icon} alt="button" />
+      {icon && <img src={icon} alt="button" />}
       <span className={`${styles.text} ${textStyle}`}>{text}</span>
     </button>
   );
