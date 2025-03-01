@@ -99,6 +99,12 @@
     color: #ffffff !important;
   }
 }
+.loadingContainer {
+  display: flex;
+  align-items: center; /* Align spinner and text vertically */
+  justify-content: center; /* Center content horizontally if needed */
+  gap: 10px; /* Space between "Transaction Pending" text and spinner */
+}
 .joinGroupContainer {
   display: flex;
   flex-direction: column;
