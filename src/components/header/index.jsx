@@ -1,82 +1,89 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
-import { Address, ConnectButton } from "@ant-design/web3";
-import { WagmiWeb3ConfigProvider } from "@ant-design/web3-wagmi";
-import { polygon, polygonAmoy } from "wagmi/chains";
-import {
-  useBalance,
-  useDisconnect,
-  useConnect,
-  useAccount,
-  useChainId,
-  http,
-  createConfig,
-} from "wagmi";
-import { injected, metaMask, coinbaseWallet } from "wagmi/connectors";
+import { polygonAmoy } from "thirdweb/chains";
 import ModalComponent from "../modal";
-import ConnectModal from "../connectModal";
+import {
+  useActiveAccount,
+  useDisconnect,
+  useActiveWallet,
+  useWalletBalance,
+} from "thirdweb/react";
+import { clientId } from "../../constants";
+import { Address } from "@ant-design/web3";
 
-const Header = ({ setIsLoggedIn }) => {
-  
-  const config = createConfig({
-    chains: [polygon, polygonAmoy],
-    connectors: [metaMask(), coinbaseWallet()],
-    transports: {
-      [polygonAmoy.id]: http(),
-      [polygon.id]: http(),
-    },
-  });
-  const { address } = useAccount();
-  const { disconnect } = useDisconnect();
+import { ethereum } from "thirdweb/chains";
+import { createThirdwebClient } from "thirdweb";
+import { toast } from "react-toastify";
+import ToastMessage from "../toast";
+
+const Header = ({ setIsLoggedIn, isLoggedIn }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const client = createThirdwebClient({ clientId });
   const [loading, setLoading] = useState(false);
+  const activeAccount = useActiveAccount();
+  const address = activeAccount?.address;
+  const { data, isFetching, error } = useWalletBalance({
+    chain: polygonAmoy,
+    address,
+    client,
+  });
 
-  const handleDisconnect = () => {
-    setShowConfirmModal(true);
-    setIsDropdownOpen(false);
-  };
-  const closeModal = () => {
-    setShowConfirmModal(false);
-  };
+  const wallet = useActiveWallet();
 
-  const confirmDisconnect = async () => {
-    setLoading(true);
-    try {
-      await disconnect();
-    } catch (error) {
-      console.error("Error disconnecting:", error);
-    } finally {
-      setLoading(false);
-      window.location.reload();
-    }
-    setShowConfirmModal(false);
-  };
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+  const { disconnect } = useDisconnect();
 
   const dropdownRef = useRef(null);
 
-  const { data: balance, isError, error } = useBalance({ address });
+  const closeModal = () => {
+    setShowConfirmModal(false);
+  };
+  // Handle dropdown toggle
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
 
+  // Handle disconnect & close dropdown
+  const handleDisconnect = () => {
+    setShowConfirmModal(true);
+  };
+
+  const confirmDisconnect = async () => {
+    try {
+      await disconnect(wallet); // Disconnect the wallet
+      setShowConfirmModal(false);
+      toast.success(<ToastMessage message={"Disconnected Successfully "} />);
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+    }
+  };
+
+  // Close dropdown on outside click
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    if (!showConfirmModal) {
+      const handleClickOutside = (event) => {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(event.target)
+        ) {
+          setIsDropdownOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [showConfirmModal]);
 
-  if (isError) {
-    console.error("Balance Fetch Error:", isError, error);
-  }
+  const copyToClipboard = () => {
+    if (address) {
+      navigator.clipboard.writeText(address);
+      toast.error(<ToastMessage message={"Address copied"} />);
+    } else {
+    }
+  };
 
   return (
     <>
@@ -113,20 +120,25 @@ const Header = ({ setIsLoggedIn }) => {
             >
               <div className={styles.dropdownItem}>
                 <img src={IMAGES.PROFILE_ICON} alt="Profile" />
-
                 <Address
                   className={styles.address}
                   ellipsis
                   address={address}
                   tooltip={false}
                 />
-                <img src={IMAGES.COPY_ICON} alt="Copy" />
+                <img
+                  src={IMAGES.COPY_ICON}
+                  alt="Copy"
+                  onClick={copyToClipboard}
+                />
               </div>
               <div className={styles.dropdownItem}>
                 <div className={styles.walletBalance}>
                   <p>Wallet Balance</p>
                   <span>
-                    {balance?.formatted} {balance?.symbol}
+                    {isFetching
+                      ? "Fetching . . . "
+                      : `${data?.displayValue} ${data?.symbol}`}
                   </span>
                 </div>
               </div>
@@ -139,27 +151,26 @@ const Header = ({ setIsLoggedIn }) => {
                 <img src={IMAGES.LOGOUT_ICON} alt="Logout" />
                 <span>Disconnect</span>
               </div>
-              {/* <ConnectModal disconnect={disconnect} /> */}
+              {showConfirmModal && (
+                <ModalComponent
+                  modalOpen={showConfirmModal}
+                  isCreateGroup={false}
+                  isJoinGroup={false}
+                  onConfirm={confirmDisconnect}
+                  onCancel={closeModal}
+                  closeIcon={true}
+                  loading={loading}
+                >
+                  <div>
+                    {" "}
+                    <h3>Confirm Disconnect</h3>
+                    <p>Are you sure you want to disconnect your wallet?</p>
+                  </div>
+                </ModalComponent>
+              )}
             </div>
           </div>
         </div>
-        {showConfirmModal && (
-          <ModalComponent
-            modalOpen={showConfirmModal}
-            isCreateGroup={false}
-            isJoinGroup={false}
-            onConfirm={confirmDisconnect}
-            onCancel={closeModal}
-            closeIcon={true}
-            loading={loading}
-          >
-            <div>
-              {" "}
-              <h3>Confirm Disconnect</h3>
-              <p>Are you sure you want to disconnect your wallet?</p>
-            </div>
-          </ModalComponent>
-        )}
       </header>
     </>
   );

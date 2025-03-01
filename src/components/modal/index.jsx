@@ -17,6 +17,7 @@ const ModalComponent = ({
   cancelButtonText,
   children,
   closeIcon = false,
+  footer
 }) => {
   const Title = () => {
     return <p className={styles.modalTitle}>{title}</p>;
@@ -65,7 +66,7 @@ const ModalComponent = ({
       onCancel={onCancel}
       width={400}
       closeIcon={closeIcon}
-      footer={<Footer />}
+      footer={footer ? footer : <Footer />}
       maskClosable={false}
     >
       {isCreateGroup && (

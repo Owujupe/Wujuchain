@@ -7,7 +7,7 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const toastConfig = {
-  autoClose: 2500,
+  autoClose: 2200,
   position: "bottom-left",
   transition: Slide,
   hideProgressBar: true,

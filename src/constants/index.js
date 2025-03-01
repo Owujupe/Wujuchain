@@ -37,3 +37,5 @@ export const BOTTOM_NAV_ITEMS = [
     activeImage: IMAGES.SETTINGS_ACTIVE,
   },
 ];
+
+  export const clientId = import.meta.env.VITE_PUBLIC_THIRDWEB_CLIENT_ID;

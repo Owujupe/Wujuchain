@@ -4,13 +4,13 @@ import Header from "../components/header";
 import Sidebar from "../components/sidebar";
 import { ROUTES } from "./routes";
 
-export const PrivateLayout = ({ isLoggedIn,setIsLoggedIn, routeName }) => {
+export const PrivateLayout = ({ isLoggedIn, setIsLoggedIn, routeName }) => {
   return isLoggedIn ? (
     <Fragment>
       <div className="main-wraper">
         <Sidebar routeName={routeName} />
         <div className="content-wraper">
-          <Header setIsLoggedIn={setIsLoggedIn} />
+          <Header  />
           <div className="scrollable-content">
             <Outlet />
           </div>

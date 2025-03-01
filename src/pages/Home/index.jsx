@@ -4,19 +4,21 @@ import { IMAGES } from "../../constants/assets";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/routes";
 import ConnectModal from "../../components/connectModal";
-import {
-  useBalance,
-  useDisconnect,
-  useConnect,
-  useAccount,
-  useChainId,
-  http,
-} from "wagmi";
+import { useActiveAccount } from "thirdweb/react";
+import { Button } from "antd";
 const Home = () => {
+  const activeAccount = useActiveAccount();
+  console.log("address", activeAccount?.address);
+  const address = activeAccount?.address;
+
   const navigate = useNavigate();
   const [showWalletModal, setShowWalletModal] = useState(true);
-  const { address, isConnected, isConnecting, isDisconnected } = useAccount();
 
+  useEffect(() => {
+    if (!address) {
+      setShowWalletModal(true);
+    }
+  }, [address]);
   return (
     <>
       <div className={styles.homeContainer}>
@@ -61,9 +63,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {showWalletModal && !address && (
-        <ConnectModal open={showWalletModal} setOpen={setShowWalletModal} />
-      )}
+      {showWalletModal && !address && <ConnectModal onOpen={showWalletModal} setOpen={setShowWalletModal} />}
     </>
   );
 };

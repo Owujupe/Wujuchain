@@ -17,7 +17,8 @@ import {
   Dashboard,
   AdminDashboard,
 } from "../pages";
-import { useAccount } from "wagmi";
+import { useActiveAccount } from "thirdweb/react";
+import { useActiveWallet } from "thirdweb/react";
 
 //Scroll to top on every route change
 const ScrollToTop = ({ children }) => {
@@ -28,9 +29,9 @@ const ScrollToTop = ({ children }) => {
   return children;
 };
 const AdminRoute = ({ children }) => {
-  const { address, isConnected, isConnecting, isDisconnected } = useAccount();
+  const activeAccount = useActiveAccount();
 
-  const connectedWallet = address;
+  const connectedWallet = activeAccount?.address;
   const adminWallet = import.meta.env.VITE_ADMIN_WALLET_ADDRESS;
 
   if (connectedWallet !== adminWallet) {
@@ -39,9 +40,15 @@ const AdminRoute = ({ children }) => {
 
   return children;
 };
+
 const Router = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [routeName, setRouteName] = useState("");
+  const wallet = useActiveWallet();
+  const activeAccount = useActiveAccount();
+  const walletAddress = activeAccount?.address;
+  const isConnected = !!wallet;
+
   const RouteChangeTracker = () => {
     const location = useLocation();
     useEffect(() => {
@@ -50,6 +57,14 @@ const Router = () => {
 
     return null;
   };
+  useEffect(() => {
+    if (!isConnected && !walletAddress) {
+      setIsLoggedIn(false);
+    } else {
+      setIsLoggedIn(true);
+    }
+  }, [isConnected]);
+
   return (
     <BrowserRouter>
       <ScrollToTop>

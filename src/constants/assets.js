@@ -38,6 +38,7 @@ export const IMAGES = {
   JOIN_GROUP_ACTIVE: "/images/sidebar/join-group-active.svg",
   JOIN_GROUP: "/images/sidebar/join-group.svg",
   ADMIN_ICON: "/images/sidebar/admin.png",
-  ADMIN_ACTIVE_ICON: "/images/sidebar/admin-active.png"
-
+  ADMIN_ACTIVE_ICON: "/images/sidebar/admin-active.png",
+  COINBASE_ICON: "/images/wallets/coinbase.png",
+  METAMASK_ICON: "/images/wallets/metamask.png",
 };
