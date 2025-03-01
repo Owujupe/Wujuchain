@@ -7,6 +7,13 @@ import dayjs from "dayjs";
 import ModalComponent from "../../components/modal";
 import { toast } from "react-toastify";
 import ToastMessage from "../../components/toast";
+import { getContract } from "thirdweb";
+import { useLocation } from 'react-router-dom';
+import { client } from "../../../client"
+import { polygonAmoy } from "thirdweb/chains";
+import { CROWDFUNDING_FACTORY } from "../../constants/address";
+import {useReadContract} from "thirdweb/react"
+
 
 const JoinGroup = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,7 +22,22 @@ const JoinGroup = () => {
   const [showDateDropdown, setShowDateDropdown] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [groupCode, setGroupCode] = useState("");
-
+  const location = useLocation();
+  const linkData = location.state;
+  console.log("Joining Address", linkData?.groupContractAddress);
+  //For Testing Only
+  const contract = getContract({
+    client: client,
+    chain: polygonAmoy,
+    address: CROWDFUNDING_FACTORY,
+  });
+  const { data: groupcode, isPending } = useReadContract({
+    contract,
+    method: "function getGroupCode() view returns (string)",
+    params: [],
+  });
+  console.log("group code", groupcode)
+  ////////////////////////////////////////////////////////////
   const groupData = {
     icon: IMAGES.SHS_GROUP,
     groupName: "SHS 21",

@@ -68,7 +68,7 @@ const GroupCard = (groupAddress) => {
                 <h2 className={styles.groupTitle}>{groupName}</h2>
                 <p className={styles.groupDescription}>{groupDescription}</p>
             </div>
-                <button onClick={() => navigate(ROUTES.JOIN_GROUP)} className={styles.viewGroupButton}>
+                <button onClick={() => navigate(ROUTES.JOIN_GROUP, {state: {groupContractAddress: contractaddress}})} className={styles.viewGroupButton}>
                     Join Group
                     <svg
                         className={styles.viewGroupIcon}
