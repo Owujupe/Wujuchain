@@ -26,27 +26,27 @@ const ModalComponent = ({
     return (
       <div className={styles.modalFooter}>
         {onConfirm && (
-          <Button
-            className={
-              loading
-                ? styles.modalConfirmButtonLoading
-                : styles.modalConfirmButton
-            }
-            onClick={onConfirm}
-          >
-            {loading && (
-              <span>
+          <>
+            {loading ? (
+              <div className={styles.loadingContainer}>
+                <p>Transaction Pending</p>
                 <Spin
                   indicator={
                     <LoadingOutlined spin style={{ color: "#7A28FF" }} />
                   }
                   size="small"
-                  style={{ marginRight: "10px", width: "10px" }}
-                />{" "}
-              </span>
+                  style={{ marginLeft: "10px" }}
+                />
+              </div>
+            ) : (
+              <Button
+                className={styles.modalConfirmButton}
+                onClick={onConfirm}
+              >
+                {confirmButtonText ? confirmButtonText : "Confirm"}
+              </Button>
             )}
-            {confirmButtonText ? confirmButtonText : "Confirm"}
-          </Button>
+          </>
         )}
         {onCancel && (
           <Button className={styles.modalCancelButton} onClick={onCancel}>

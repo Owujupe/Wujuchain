@@ -16,6 +16,7 @@ import {
   GroupDetails,
   Dashboard,
   AdminDashboard,
+  Groups
 } from "../pages";
 import { useActiveAccount } from "thirdweb/react";
 import { useActiveWallet } from "thirdweb/react";
@@ -104,6 +105,7 @@ const Router = () => {
             <Route path={ROUTES.GROUP_DETAILS} element={<GroupDetails />} />
             <Route path={ROUTES.CREATE_GROUP} element={<CreateGroup />} />
             <Route path={ROUTES.JOIN_GROUP} element={<JoinGroup />} />
+            <Route path={ROUTES.GROUPS} element={<Groups />} />
           </Route>
 
           <Route path="*" element={<Navigate to={ROUTES.SIGNIN} />} />
