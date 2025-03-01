@@ -91,11 +91,17 @@ const CreateGroup = () => {
   const { mutate: sendTransaction } = useSendTransaction();
   const onConfirmCreate = () => {
     setLoading(true);
+    const randomNumber = Math.floor(Math.random() * 10000) + 1;
+    const randomChar1 = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+    const randomChar2 = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+    const ranNum = String(randomNumber)
+    const groupCode=randomChar1 + randomChar2+ ranNum
+    console.log(groupCode)
     //Add Create Group Function on Factory Contract
     const transaction = prepareContractCall({
       contract,
       method:
-        "function createCampaign(string _groupname, string _description, uint256 _goal, uint256 _durationInDays, uint256 _groupsize, address _admit)",
+        "function createCampaign(string _groupname, string _description, uint256 _goal, uint256 _durationInDays, uint256 _groupsize, address _admit, string _groupcode)",
       params: [
         createGroup.groupName.trim(),
         createGroup.groupPurpose.trim(),
@@ -103,6 +109,7 @@ const CreateGroup = () => {
         frequency[createGroup.frequency.trim()],
         createGroup.groupSize,
         ADMIN_ADDRESS,
+        groupCode,
       ],
     });
     sendTransaction(transaction);
