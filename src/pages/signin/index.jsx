@@ -8,7 +8,7 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
     <div className={styles.container}>
       <div>
         <div className={styles.logo}>
-          <img src={IMAGES.LOGO} alt="logo" />
+          <img src={IMAGES.WUJUCHAIN_ICON} alt="logo" />
         </div>
         <div className={styles.signLabel}>
           <span>Sign in Options</span>

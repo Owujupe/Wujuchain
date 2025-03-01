@@ -16,7 +16,7 @@ const Sidebar = ({ routeName }) => {
           navigate(ROUTES.APP);
         }}
       >
-        <img src={IMAGES.LOGO} alt="Logo" />
+        <img src={IMAGES.WUJUCHAIN_ICON} alt="Logo" />
       </div>
 
       {/* Main Navigation */}

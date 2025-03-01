@@ -41,4 +41,5 @@ export const IMAGES = {
   ADMIN_ACTIVE_ICON: "/images/sidebar/admin-active.png",
   COINBASE_ICON: "/images/wallets/coinbase.png",
   METAMASK_ICON: "/images/wallets/metamask.png",
+  WUJUCHAIN_ICON : "/images/WujuChain.png"
 };

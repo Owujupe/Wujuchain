@@ -80,7 +80,7 @@ const Header = ({ setIsLoggedIn, isLoggedIn }) => {
   const copyToClipboard = () => {
     if (address) {
       navigator.clipboard.writeText(address);
-      toast.error(<ToastMessage message={"Address copied"} />);
+      toast.success(<ToastMessage message={"Address copied"} />);
     } else {
     }
   };
