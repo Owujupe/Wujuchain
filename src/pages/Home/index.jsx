@@ -47,7 +47,7 @@ const Home = () => {
 
           <div
             className={styles.joinContainer}
-            onClick={() => navigate(ROUTES.JOIN_GROUP)}
+            onClick={() => navigate(ROUTES.GROUPS)}
           >
             <h2>
               Join your first{" "}
