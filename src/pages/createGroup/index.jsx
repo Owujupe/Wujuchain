@@ -49,6 +49,7 @@ const CreateGroup = () => {
   };
   const onConfirmCreate = () => {
     setLoading(true);
+    //Add Create Group Function on Factory Contract
     setTimeout(() => {
       setLoading(false);
       setModalOpenCreate(false);
