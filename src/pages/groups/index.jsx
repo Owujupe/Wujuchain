@@ -20,7 +20,7 @@ const GROUPS = () => {
     params: [],
   });
 
-  console.log(groups);
+  //console.log(groups);
 
   return (
     <main className={`${styles.main}`}>

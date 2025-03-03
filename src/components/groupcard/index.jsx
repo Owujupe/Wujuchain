@@ -9,12 +9,6 @@ import { useNavigate } from "react-router-dom";
 const GroupCard = (groupAddress) => {
     const navigate = useNavigate();
     const contractaddress = groupAddress.groupAddress;
-    const randomNumber = Math.floor(Math.random() * 10000) + 1;
-    const randomChar1 = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    const randomChar2 = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    const ranNum = String(randomNumber)
-    console.log(randomChar1 + randomChar2+ ranNum);
-
     console.log("GroupAddress ", contractaddress, typeof(contractaddress));
 
     const contract = getContract({
