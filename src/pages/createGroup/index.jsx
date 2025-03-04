@@ -25,6 +25,7 @@ const CreateGroup = () => {
     startDate: "",
     amount: "",
   });
+  const [groupcode, setGroupCode] =useState()
   const [modalOpenCreate, setModalOpenCreate] = useState(false);
   const [modalOpenGenerate, setModalOpenGenerate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ const CreateGroup = () => {
   useEffect(() => {
     if (event) {
       console.log("Transaction result", event[0])
-      alert(`Successfully created: ${event[0]['args']["groupname"]}\nTransaction Hash: ${event[0]["transactionHash"]}`);
+      alert(`Successfully created: ${event[0]['args']["groupname"]}\nTransaction Hash: ${event[0]["transactionHash"]}\nGroup Code: ${groupcode}`);
       setLoading(false);
       setModalOpenCreate(false);
       setModalOpenGenerate(true);
@@ -97,6 +98,7 @@ const CreateGroup = () => {
     const ranNum = String(randomNumber)
     const groupCode=randomChar1 + randomChar2+ ranNum
     console.log(groupCode)
+    setGroupCode(groupCode)
     //Add Create Group Function on Factory Contract
     const transaction = prepareContractCall({
       contract,

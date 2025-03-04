@@ -106,6 +106,7 @@ const Router = () => {
             <Route path={ROUTES.CREATE_GROUP} element={<CreateGroup />} />
             <Route path={ROUTES.JOIN_GROUP} element={<JoinGroup />} />
             <Route path={ROUTES.GROUPS} element={<Groups />} />
+            <Route path={ROUTES.MYGROUP} element={<MyGroup />} />
           </Route>
 
           <Route path="*" element={<Navigate to={ROUTES.SIGNIN} />} />

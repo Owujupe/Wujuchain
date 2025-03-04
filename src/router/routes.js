@@ -8,5 +8,6 @@ export const ROUTES = {
   GROUPS:"/groups",
   GROUP_DETAILS: "/group-details",
   SETTING: "/setting",
+  MYGROUP: "/my-groups",
   ID: ":id",
 };

@@ -23,10 +23,16 @@ export const NAV_ITEMS = [
   },
   {
     name: "Join Group",
+    route: ROUTES.GROUPS,
+    image: IMAGES.GROUPS,
+    activeImage: IMAGES.JOIN_GROUP_ACTIVE,
+  },
+  {
+    name: "My Group",
     route: ROUTES.JOIN_GROUP,
     image: IMAGES.JOIN_GROUP,
     activeImage: IMAGES.JOIN_GROUP_ACTIVE,
-  },
+  }
 ];
 
 export const BOTTOM_NAV_ITEMS = [
