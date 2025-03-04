@@ -29,7 +29,7 @@ export const NAV_ITEMS = [
   },
   {
     name: "My Group",
-    route: ROUTES.JOIN_GROUP,
+    route: ROUTES.MYGROUP,
     image: IMAGES.JOIN_GROUP,
     activeImage: IMAGES.JOIN_GROUP_ACTIVE,
   }

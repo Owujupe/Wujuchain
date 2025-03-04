@@ -16,7 +16,8 @@ import {
   GroupDetails,
   Dashboard,
   AdminDashboard,
-  Groups
+  Groups,
+  MyGroup,
 } from "../pages";
 import { useActiveAccount } from "thirdweb/react";
 import { useActiveWallet } from "thirdweb/react";
