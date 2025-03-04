@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@ant-design/web3": "^1.20.0",
+    "@ant-design/web3": "^1.21.0",
     "@ant-design/web3-eth-web3js": "^1.1.15",
     "@ant-design/web3-wagmi": "^2.10.0",
     "@tanstack/react-query": "^5.65.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "@wagmi/connectors": "^5.7.5",
     "antd": "^5.23.1",
     "cra-template": "1.2.0",
     "dayjs": "^1.11.13",
@@ -18,11 +17,11 @@
     "react-router-dom": "^7.1.1",
     "react-toastify": "^11.0.3",
     "sass": "^1.83.1",
+    "thirdweb": "^5.89.0",
     "typescript": "^5.7.3",
     "vite": "^6.0.7",
-    "wagmi": "^2.14.9",
-    "web-vitals": "^2.1.4",
-    "web3": "^4.16.0"
+    "wagmi": "^2.14.11",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "dev": "vite",

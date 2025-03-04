@@ -1,0 +1,31 @@
+.main {
+    margin: 0 auto;
+    max-width: 7xl;
+    padding: 4rem 1rem;
+    //margin-top: 1rem;
+  
+    @media (min-width: 640px) {
+      padding: 4rem 1.5rem;
+    }
+  
+    @media (min-width: 1024px) {
+      padding: 4rem 2rem;
+    }
+  }
+  
+  .content {
+    padding: 2.5rem 0;
+  }
+  
+  .heading {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  

@@ -4,13 +4,21 @@ import { IMAGES } from "../../constants/assets";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/routes";
 import ConnectModal from "../../components/connectModal";
-import { useAccount } from "@ant-design/web3";
-
+import { useActiveAccount } from "thirdweb/react";
+import { Button } from "antd";
 const Home = () => {
+  const activeAccount = useActiveAccount();
+  console.log("address", activeAccount?.address);
+  const address = activeAccount?.address;
+
   const navigate = useNavigate();
   const [showWalletModal, setShowWalletModal] = useState(true);
-  const { account } = useAccount();
 
+  useEffect(() => {
+    if (!address) {
+      setShowWalletModal(true);
+    }
+  }, [address]);
   return (
     <>
       <div className={styles.homeContainer}>
@@ -39,7 +47,7 @@ const Home = () => {
 
           <div
             className={styles.joinContainer}
-            onClick={() => navigate(ROUTES.JOIN_GROUP)}
+            onClick={() => navigate(ROUTES.GROUPS)}
           >
             <h2>
               Join your first{" "}
@@ -55,10 +63,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {showWalletModal &&
-        !account?.address &&(
-          <ConnectModal open={showWalletModal} setOpen={setShowWalletModal} />
-        )}
+      {showWalletModal && !address && <ConnectModal onOpen={showWalletModal} setOpen={setShowWalletModal} />}
     </>
   );
 };

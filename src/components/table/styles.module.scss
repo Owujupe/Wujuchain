@@ -67,12 +67,12 @@
           background-color: #f4f3f8;
           padding: 1rem;
           text-align: left;
-          font-weight: 400;
+          font-weight: 500;
           color: #1a0a3d;
           font-size: 1rem;
 
           &:first-child {
-            padding-top: 5px;
+            // padding-top: 5px;
             border-top-left-radius: 0.5rem;
             border-bottom-left-radius: 0.5rem;
           }
@@ -111,4 +111,15 @@
       }
     }
   }
+}
+
+.actionButton{
+  display: inline-block;
+  padding: 6px 0px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  text-align: center;
+  min-width: 80px;
 }

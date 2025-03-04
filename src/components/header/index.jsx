@@ -1,78 +1,92 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
-import { Address, useConnection } from "@ant-design/web3";
-// import { useAccount, useBalance, useDisconnect } from "wagmi";
-import { Sepolia, WagmiWeb3ConfigProvider } from "@ant-design/web3-wagmi";
-import { baseSepolia, mintSepoliaTestnet, sepolia } from "wagmi/chains";
+import { polygonAmoy } from "thirdweb/chains";
+import ModalComponent from "../modal";
 import {
-  useBalance,
+  useActiveAccount,
   useDisconnect,
-  useConnections,
-  useConnect,
-  useAccount,
-  useChainId,
-  http,
-} from "wagmi";
-import { injected } from "wagmi/connectors";
+  useActiveWallet,
+  useWalletBalance,
+} from "thirdweb/react";
+import { clientId } from "../../constants";
+import { Address } from "@ant-design/web3";
 
-const Header = () => {
-  const { address, isConnected } = useAccount();
-  const { connect } = useConnect();
-  const { disconnect } = useDisconnect();
+import { ethereum } from "thirdweb/chains";
+import { createThirdwebClient } from "thirdweb";
+import { toast } from "react-toastify";
+import ToastMessage from "../toast";
+
+const Header = ({ setIsLoggedIn, isLoggedIn }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const client = createThirdwebClient({ clientId });
+  const [loading, setLoading] = useState(false);
+  const activeAccount = useActiveAccount();
+  const address = activeAccount?.address;
+  const { data, isFetching, error } = useWalletBalance({
+    chain: polygonAmoy,
+    address,
+    client,
+  });
 
-  const handleDisconnect = async () => {
+  const wallet = useActiveWallet();
+
+  const { disconnect } = useDisconnect();
+
+  const dropdownRef = useRef(null);
+
+  const closeModal = () => {
+    setShowConfirmModal(false);
+  };
+  // Handle dropdown toggle
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  // Handle disconnect & close dropdown
+  const handleDisconnect = () => {
+    setShowConfirmModal(true);
+  };
+
+  const confirmDisconnect = async () => {
     try {
-      await disconnect();
+      await disconnect(wallet); // Disconnect the wallet
+      setShowConfirmModal(false);
+      toast.success(<ToastMessage message={"Disconnected Successfully "} />);
     } catch (error) {
-      console.error("Error disconnecting:", error);
+      console.error("Error disconnecting wallet:", error);
     }
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  // Close dropdown on outside click
+  useEffect(() => {
+    if (!showConfirmModal) {
+      const handleClickOutside = (event) => {
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(event.target)
+        ) {
+          setIsDropdownOpen(false);
+        }
+      };
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [showConfirmModal]);
+
+  const copyToClipboard = () => {
+    if (address) {
+      navigator.clipboard.writeText(address);
+      toast.success(<ToastMessage message={"Address copied"} />);
+    } else {
+    }
   };
 
-  const dropdownRef = useRef(null);
-  const chainId = useChainId({
-    chains: [sepolia],
-    transports: {
-      // [mainnet.id]: http(),
-      // [polygon.id]: http(),
-      // [arbitrum.id]: http(),
-      // [optimism.id]: http(),
-      [sepolia.id]: http(),
-    },
-    connectors: [
-      injected({
-        target: "metaMask",
-      }),
-    ],
-  });
-  console.log(chainId, "gggghg", sepolia.id);
-  const { data: balance,isError,error } = useBalance({ address, chainId: Sepolia.id });
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-  if (isError) {
-    console.error("Balance Fetch Error:", isError,error);
-  }
-  console.log("Address:", address);
-  console.log("Chain ID:", sepolia.id);
-  console.log("Is Connected:", isConnected);
-  console.log("Balance:", balance);
-
   return (
-    <WagmiWeb3ConfigProvider>
+    <>
       <header className={styles.header}>
         <div className={styles.searchContainer}>
           <img src={IMAGES.SEARCH} alt="Search" />
@@ -106,20 +120,25 @@ const Header = () => {
             >
               <div className={styles.dropdownItem}>
                 <img src={IMAGES.PROFILE_ICON} alt="Profile" />
-
                 <Address
                   className={styles.address}
                   ellipsis
                   address={address}
                   tooltip={false}
                 />
-                <img src={IMAGES.COPY_ICON} alt="Copy" />
+                <img
+                  src={IMAGES.COPY_ICON}
+                  alt="Copy"
+                  onClick={copyToClipboard}
+                />
               </div>
               <div className={styles.dropdownItem}>
                 <div className={styles.walletBalance}>
                   <p>Wallet Balance</p>
                   <span>
-                    {balance?.formatted} {balance?.symbol}
+                    {isFetching
+                      ? "Fetching . . . "
+                      : `${data?.displayValue} ${data?.symbol}`}
                   </span>
                 </div>
               </div>
@@ -132,11 +151,28 @@ const Header = () => {
                 <img src={IMAGES.LOGOUT_ICON} alt="Logout" />
                 <span>Disconnect</span>
               </div>
+              {showConfirmModal && (
+                <ModalComponent
+                  modalOpen={showConfirmModal}
+                  isCreateGroup={false}
+                  isJoinGroup={false}
+                  onConfirm={confirmDisconnect}
+                  onCancel={closeModal}
+                  closeIcon={true}
+                  loading={loading}
+                >
+                  <div>
+                    {" "}
+                    <h3>Confirm Disconnect</h3>
+                    <p>Are you sure you want to disconnect your wallet?</p>
+                  </div>
+                </ModalComponent>
+              )}
             </div>
           </div>
         </div>
       </header>
-    </WagmiWeb3ConfigProvider>
+    </>
   );
 };
 
