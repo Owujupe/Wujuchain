@@ -1,0 +1,62 @@
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 24rem;
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+
+.groupTitle {
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 2rem;
+}
+
+.groupDescription {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #4b5563;
+}
+
+.viewGroupButton {
+    display: inline-flex;
+    align-items: center;
+    background-color: #906ae3; 
+    color: #fff;
+    padding: 0.5rem 1rem; 
+    font-size: 0.875rem; 
+    font-weight: 600;
+    border-radius: 15px; 
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  
+    &:hover {
+      background-color: #672c91; 
+      transform: translateY(-2px); 
+    }
+  
+    &:active {
+      background-color: #574bbe; 
+      transform: translateY(0); 
+    }
+  
+    &:focus {
+      outline: none;
+    }
+}
+
+.viewGroupIcon {
+    margin-left: 0.5rem; /* Reduced space between text and icon */
+    transition: transform 0.3s ease;
+}
+
+.viewGroupButton:hover .viewGroupIcon {
+    transform: translateX(5px); /* Slightly smaller movement on hover */
+}

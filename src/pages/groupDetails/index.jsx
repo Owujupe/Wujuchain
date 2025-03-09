@@ -4,8 +4,13 @@ import { IMAGES } from "../../constants/assets";
 import Balance from "../../components/balance";
 import CashFlow from "../../components/cashFlow";
 import Table from "../../components/table";
+import { useLocation } from 'react-router-dom';
 
 const GroupDetails = () => {
+  const location = useLocation();
+  const linkData = location.state;
+  const campaignaddress = linkData?.groupContractAddress
+  console.log(campaignaddress)
   const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
 const firstTableData = [
   { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },

@@ -8,7 +8,6 @@ import { useActiveAccount } from "thirdweb/react";
 import { Button } from "antd";
 const Home = () => {
   const activeAccount = useActiveAccount();
-  console.log("address", activeAccount?.address);
   const address = activeAccount?.address;
 
   const navigate = useNavigate();
