@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "./styles.module.scss";
 
-const Balance = () => {
+const Balance = ({campaignAddress}) => {
+  
   return (
     <section className={styles.boxSection}>
       <div className={styles.box}>
