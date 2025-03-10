@@ -41,6 +41,11 @@ const GroupDetails = () => {
     method: "function goal() view returns (uint256)",
     params: [],
   });
+  const { data: cycle } = useReadContract({
+    contract,
+    method: "function cycle() view returns (uint256)",
+    params: [],
+  });
   const { data: groupsize } = useReadContract({
     contract,
     method: "function groupSize() view returns (uint256)",
@@ -50,7 +55,14 @@ const GroupDetails = () => {
     contract,
     method: "function memberCount() view returns (uint256)",
     params: [],
-});
+  });
+  const { data: contractbalance } = useReadContract({
+    contract,
+    method:
+      "function getContractBalance() view returns (uint256)",
+    params: [],
+  });
+
   const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
 const firstTableData = [
   { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
@@ -64,7 +76,7 @@ const firstTableData = [
         <img src={IMAGES.EDIT_ICON} alt="edit" />
       </div>
 
-      <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} />
+      <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} goal={goal} cycle={cycle} contractBalance={contractbalance} />
       <CashFlow />
       <Table headers={firstTableHeaders} data={firstTableData}  />
     </div>
