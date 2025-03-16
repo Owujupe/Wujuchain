@@ -9,9 +9,13 @@ import { client } from "../../client";
 import { getContract } from "thirdweb";
 import { polygonAmoy } from "thirdweb/chains";
 import { useReadContract } from "thirdweb/react";
+import {
+  useActiveAccount,
+} from "thirdweb/react";
 
 
 const GroupDetails = () => {
+  const activeAccount= useActiveAccount();
   const location = useLocation();
   const linkData = location.state;
   const campaignaddress = linkData?.groupContractAddress
@@ -62,7 +66,13 @@ const GroupDetails = () => {
       "function getContractBalance() view returns (uint256)",
     params: [],
   });
-
+  const { data: completed, isPending } = useReadContract({
+    contract,
+    method:
+      "function cycleCompleted(address, uint256) view returns (bool)",
+    params: [activeAccount.address, cycle],
+  });
+  console.log("cycle status:", completed)
   const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
 const firstTableData = [
   { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
@@ -74,6 +84,7 @@ const firstTableData = [
       <div className={styles.titleContainer}>
         <span className={styles.title}>Group Details</span>{" "}
         <p className={styles.title}> Group Code: {groupcode}</p>
+        <button className={styles.fundbutton}>Fund: $<span className={styles.goalvalue}>{String(goal)}</span></button>
         <img src={IMAGES.EDIT_ICON} alt="edit" />
       </div>
 
