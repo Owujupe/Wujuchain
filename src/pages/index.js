@@ -7,4 +7,5 @@ export { default as GroupDetails } from "./groupDetails";
 export { default as AdminDashboard } from "./adminDashboard";
 export { default as Groups } from "./groups";
 export { default as MyGroup } from "./mygroup";
+export { default as JoinedGroup } from "./joinedGroup"
 

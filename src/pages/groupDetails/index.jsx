@@ -73,6 +73,7 @@ const firstTableData = [
     <div className={styles.groups}>
       <div className={styles.titleContainer}>
         <span className={styles.title}>Group Details</span>{" "}
+        <p className={styles.title}> Group Code: {groupcode}</p>
         <img src={IMAGES.EDIT_ICON} alt="edit" />
       </div>
 
