@@ -4,18 +4,93 @@ import { IMAGES } from "../../constants/assets";
 import Balance from "../../components/balance";
 import CashFlow from "../../components/cashFlow";
 import Table from "../../components/table";
+import { useLocation } from 'react-router-dom';
+import { client } from "../../client";
+import { getContract } from "thirdweb";
+import { polygonAmoy } from "thirdweb/chains";
+import { useReadContract } from "thirdweb/react";
+import {
+  useActiveAccount,
+} from "thirdweb/react";
+
 
 const GroupDetails = () => {
+  const activeAccount= useActiveAccount();
+  const location = useLocation();
+  const linkData = location.state;
+  const campaignaddress = linkData?.groupContractAddress
+  console.log(campaignaddress)
+  const contract = getContract({
+    client: client,
+    chain: polygonAmoy,
+    address: linkData?.groupContractAddress,
+  });
+  const { data: groupcode } = useReadContract({
+    contract,
+    method: "function groupcode() view returns (string)",
+    params: [],
+  });
+  const { data: groupname } = useReadContract({
+    contract,
+    method: "function groupname() view returns (string)",
+    params: [],
+  });
+  const { data: description } = useReadContract({
+    contract,
+    method: "function description() view returns (string)",
+    params: [],
+  });
+  const { data: goal } = useReadContract({
+    contract,
+    method: "function goal() view returns (uint256)",
+    params: [],
+  });
+  const { data: cycle } = useReadContract({
+    contract,
+    method: "function cycle() view returns (uint256)",
+    params: [],
+  });
+  const { data: groupsize } = useReadContract({
+    contract,
+    method: "function groupSize() view returns (uint256)",
+    params: [],
+  });
+  const { data: memberCount } = useReadContract({
+    contract,
+    method: "function memberCount() view returns (uint256)",
+    params: [],
+  });
+  const { data: contractbalance } = useReadContract({
+    contract,
+    method:
+      "function getContractBalance() view returns (uint256)",
+    params: [],
+  });
+  const { data: completed, isPending } = useReadContract({
+    contract,
+    method:
+      "function cycleCompleted(address, uint256) view returns (bool)",
+    params: [activeAccount.address, cycle],
+  });
+  console.log("cycle status:", completed)
+  const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
+const firstTableData = [
+  { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
+  { "S/N": 2, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "unpaid" },
+  { "S/N": 3, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "next" },
+];
   return (
     <div className={styles.groups}>
       <div className={styles.titleContainer}>
         <span className={styles.title}>Group Details</span>{" "}
+        <p className={styles.title}> Group Code: {groupcode}</p>
+        <button className={styles.fundbutton}>Fund: $<span className={styles.goalvalue}>{String(goal)}</span></button>
         <img src={IMAGES.EDIT_ICON} alt="edit" />
       </div>
 
-      <Balance />
+      <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} goal={goal} cycle={cycle} contractBalance={contractbalance} />
       <CashFlow />
-      <Table />
+      <Table headers={firstTableHeaders} data={firstTableData}  />
     </div>
   );
 };

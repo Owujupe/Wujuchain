@@ -23,3 +23,31 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
 }
+
+/* Style for the button */
+.fundbutton {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  padding: 12px 20px; /* Padding inside the button */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex; /* Flexbox for aligning content */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
+}
+
+/* Hover effect */
+.fundbutton:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+/* Optional: Style for the value span */
+#goalvalue {
+  font-size: 18px; /* Slightly larger font for the goal value */
+  font-weight: bold;
+}

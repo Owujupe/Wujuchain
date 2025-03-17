@@ -1,8 +1,9 @@
-import React from "react";
+// import React from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
+import Button from "../button";
 
-const Table = () => {
+const Table = ({ headers, data, actionButton }) => {
   const StatusBadge = ({ status }) => {
     const statusClasses = {
       paid: styles.statusPaid,
@@ -16,6 +17,7 @@ const Table = () => {
       </span>
     );
   };
+
   return (
     <div className={styles.tableSection}>
       <div className={styles.searchBar}>
@@ -30,39 +32,37 @@ const Table = () => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>S/N</th>
-            <th>Wallet</th>
-            <th>Payment Date</th>
-            <th>Status</th>
+            {headers.map((header, index) => (
+              <th key={index}>{header}</th>
+            ))}
+            {actionButton && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>46578903394857390239</td>
-            <td>23 August, 2024</td>
-            <td>
-              <StatusBadge status="paid" />
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>46578903394857390239</td>
-            <td>23 August, 2024</td>
-            <td>
-              <StatusBadge status="unpaid" />
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>46578903394857390239</td>
-            <td>23 August, 2024</td>
-            <td>
-              <StatusBadge status="next" />
-            </td>
-          </tr>
-
-          {/* Add more rows as needed */}
+          {data.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {headers.map((header, colIndex) => (
+                <td key={colIndex}>
+                  {header === "Status" ? (
+                    <StatusBadge status={row[header]} />
+                  ) : (
+                    row[header]
+                  )}
+                </td>
+              ))}
+              {actionButton && (
+                <td>
+                  <Button
+                    onClick={() => actionButton.onClick(row)}
+                    className={styles.actionButton}
+                    text={actionButton.label}
+                    icon={null}
+                    buttonStyle={styles.actionButton}
+                  />
+                </td>
+              )}
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

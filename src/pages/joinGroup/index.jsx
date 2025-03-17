@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,13 @@ import dayjs from "dayjs";
 import ModalComponent from "../../components/modal";
 import { toast } from "react-toastify";
 import ToastMessage from "../../components/toast";
+import { getContract, prepareContractCall, prepareEvent, watchContractEvents } from "thirdweb";
+import { useLocation } from 'react-router-dom';
+import { polygonAmoy } from "thirdweb/chains";
+import { CROWDFUNDING_FACTORY } from "../../constants/address";
+import { useReadContract, useSendTransaction } from "thirdweb/react"
+import { client } from "../../client";
+
 
 const JoinGroup = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,19 +22,65 @@ const JoinGroup = () => {
   const [showDateDropdown, setShowDateDropdown] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [groupCode, setGroupCode] = useState("");
-
+  const location = useLocation();
+  const linkData = location.state;
+  const [event, setevent] = useState(false);
+  //console.log("Joining Address", linkData?.groupContractAddress);
+  //For Testing Only
+  const campaignaddress = linkData?.groupContractAddress
+  const contract = getContract({
+    client: client,
+    chain: polygonAmoy,
+    address: linkData?.groupContractAddress,
+  });
+  const fundingcontract = getContract({
+    client: client,
+    chain: polygonAmoy,
+    address: CROWDFUNDING_FACTORY,
+  });
+  const { data: groupcode } = useReadContract({
+    contract,
+    method: "function groupcode() view returns (string)",
+    params: [],
+  });
+  const { data: groupname } = useReadContract({
+    contract,
+    method: "function groupname() view returns (string)",
+    params: [],
+  });
+  const { data: description } = useReadContract({
+    contract,
+    method: "function description() view returns (string)",
+    params: [],
+  });
+  const { data: goal } = useReadContract({
+    contract,
+    method: "function goal() view returns (uint256)",
+    params: [],
+  });
+  const { data: groupsize } = useReadContract({
+    contract,
+    method: "function groupSize() view returns (uint256)",
+    params: [],
+  });
+  const frequency = {86400:"Daily", 604800: "Bi-weekly", 2592000: "Monthly"}
+  const { data: period } = useReadContract({
+    contract,
+    method: "function period() view returns (uint256)",
+    params: [],
+  });
+  ////////////////////////////////////////////////////////////
   const groupData = {
     icon: IMAGES.SHS_GROUP,
-    groupName: "SHS 21",
-    groupPurpose:
-      "We are a group of commited individuals trying to raise money for our schools fees",
+    groupName: groupname,
+    groupPurpose: description,
     startDate: "01/23/2025",
-    amount: "150",
-    frequency: "Bi-Weekly",
-    groupSize: "7",
+    amount: goal,
+    frequency: frequency[period],
+    groupSize: groupsize,
   };
   const onSubmit = () => {
-    if (groupCode === "SHS 21") {
+    if (groupCode === groupcode) {
       setModalOpen(true);
     } else {
       toast.error(
@@ -35,13 +88,44 @@ const JoinGroup = () => {
       );
     }
   };
-  const onConfirm = () => {
-    setLoading(true);
-    setTimeout(() => {
+  //thirdWeb
+  const preparedEvent = prepareEvent({
+    signature:
+      "event MemberAdded(address indexed newMember, address indexed campaignAddress)",
+  });
+  const events = watchContractEvents({
+    contract: fundingcontract,
+    events: [preparedEvent],
+    onEvents: (events) => {
+      console.log(events)
+      setevent(events)
+    },
+    });
+  useEffect(() => {
+    if (event) {
+      console.log("Successfully added to Group", event[0])
+      alert(`Successfully Added to: ${event[0]['args']["campaignAddress"]}\nTransaction Hash: ${event[0]["transactionHash"]}`);
       setLoading(false);
       setModalOpen(false);
       setSelectDateModal(true);
-    }, 2000);
+    }
+  }, [event]);
+  const { mutate: sendTransaction } = useSendTransaction();
+  const onConfirm = () => {
+    setLoading(true);
+    console.log("Sending Transaction: ", campaignaddress, groupcode)
+    //ThirdWeb
+    
+    const transaction = prepareContractCall({
+      contract: fundingcontract,
+      method:
+        "function addCampaignMember(address _campaignAddress, string _groupCode)",
+      params: [campaignaddress, groupcode],
+    });
+    sendTransaction(transaction);
+    /*setTimeout(() => {
+      
+    }, 2000);*/
   };
   const onConfirmSelectDate = () => {
     setLoading(true);
