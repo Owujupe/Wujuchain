@@ -17,12 +17,8 @@
     "react-router-dom": "^7.1.1",
     "react-toastify": "^11.0.3",
     "sass": "^1.83.1",
-<<<<<<< HEAD
-    "typescript": "^4.9.5",
-=======
     "thirdweb": "^5.89.0",
     "typescript": "^5.7.3",
->>>>>>> 9d7569602d173eae756cc400803199c1953c48c6
     "vite": "^6.0.7",
     "wagmi": "^2.14.11",
     "web-vitals": "^2.1.4"
