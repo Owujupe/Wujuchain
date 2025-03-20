@@ -10,7 +10,7 @@ const Balance = ({campaignAddress, groupSize, groupCount, goal, cycle, contractB
           <h2>Cycle Goal</h2>
           <span className={styles.description}>
             <p className={styles.descriptionText}>{String(goal*groupSize)}</p>
-            <p className={styles.cornerText}>USDT</p>
+            <p className={styles.cornerText}>USDC</p>
           </span>
         </div>
       </div>
@@ -19,7 +19,7 @@ const Balance = ({campaignAddress, groupSize, groupCount, goal, cycle, contractB
         <div className={styles.boxContent}>
           <h2>Current Balance</h2>
           <span className={styles.description}>
-            <p className={styles.descriptionText}>${String(contractBalance)} </p>
+            <p className={styles.descriptionText}>${Number(contractBalance)/1e6} </p>
             <p className={styles.cornerText}>USDC</p>
           </span>
         </div>

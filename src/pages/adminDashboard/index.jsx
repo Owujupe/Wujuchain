@@ -14,21 +14,21 @@ const AdminDashboard = () => {
   const secondTableData = [
     {
       Group: "Group A",
-      Amount: "50 USDT",
+      Amount: "50 USDC",
       Creator: "John Doe",
       Frequency: "Monthly",
       Members: "10 Persons" ,
     },
     {
       Group: "Group B",
-      Amount: "50 USDT",
+      Amount: "50 USDC",
       Creator: "Jane Smith",
       Frequency: "Weekly",
       Members: "5 Persons",
     },
     {
       Group: "Group C",
-      Amount: "10 USDT",
+      Amount: "10 USDC",
       Creator: "Alice Johnson",
       Frequency: "Bi-weekly",
       Members: "8 persons",
