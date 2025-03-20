@@ -87,7 +87,7 @@ const ModalComponent = ({
             <div className={styles.modalAmount}>
               <span className={styles.modalLabel}>Amount to contribute</span>
               <span className={styles.modalBoldValue}>
-                {data?.amount ? `USDT ${data?.amount}` : ""}
+                {data?.amount ? `USDC ${data?.amount}` : ""}
               </span>
             </div>
             <div>
@@ -118,7 +118,7 @@ const ModalComponent = ({
             <div className={styles.modalAmount}>
               <span className={styles.modalLabel}>Amount to contribute</span>
               <span className={styles.modalBoldValue}>
-                {data?.amount ? `USDT ${data?.amount}` : ""}
+                {data?.amount ? `USDC ${data?.amount}` : ""}
               </span>
             </div>
             <div>

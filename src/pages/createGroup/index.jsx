@@ -26,6 +26,7 @@ const CreateGroup = () => {
     amount: "",
   });
   const [groupcode, setGroupCode] =useState()
+  const [contractaddress, setContractAddress] =useState()
   const [modalOpenCreate, setModalOpenCreate] = useState(false);
   const [modalOpenGenerate, setModalOpenGenerate] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -56,7 +57,8 @@ const CreateGroup = () => {
   useEffect(() => {
     if (event) {
       console.log("Transaction result", event[0])
-      alert(`Successfully created: ${event[0]['args']["groupname"]}\nTransaction Hash: ${event[0]["transactionHash"]}\nGroup Code: ${groupcode}`);
+      alert(`Successfully created: ${event[0]['args']["groupname"]}\nTransaction Hash: ${event[0]["transactionHash"]}\nGroup Code: ${groupcode}\nContract Address: ${event[0]["args"]["campaignAddress"]}`);
+      setContractAddress(event[0]['args']["campaignAddress"])
       setLoading(false);
       setModalOpenCreate(false);
       setModalOpenGenerate(true);
@@ -121,7 +123,7 @@ const CreateGroup = () => {
     setTimeout(() => {
       setLoading(false);
       setModalOpenGenerate(false);
-      navigate(ROUTES.GROUP_DETAILS);
+      navigate(ROUTES.GROUP_DETAILS, {state: {groupContractAddress: contractaddress}});
     }, 5000);
   };
   return (

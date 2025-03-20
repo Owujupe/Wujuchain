@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 import Balance from "../../components/balance";
@@ -6,21 +6,76 @@ import CashFlow from "../../components/cashFlow";
 import Table from "../../components/table";
 import { useLocation } from 'react-router-dom';
 import { client } from "../../client";
-import { getContract } from "thirdweb";
+import { getContract, prepareEvent, watchContractEvents, prepareContractCall } from "thirdweb";
 import { polygonAmoy } from "thirdweb/chains";
-import { useReadContract } from "thirdweb/react";
+import { useReadContract, useSendTransaction } from "thirdweb/react";
+import { USDC_ADDRESS } from "../../constants/address";
+import {
+  useActiveAccount,
+} from "thirdweb/react";
 
+const PopUp = ({ onClose, onApprove, onConfirm, usdcBalance, goal, approved }) => {
+  const isInsufficientFunds = Number(usdcBalance) < Number(goal);
+  return (
+    <div className={styles.popupOverlay}>
+      <div className={styles.popup}>
+        <p className={styles.popupTitle}>Are you sure you want to fund this group?</p>
+        <ul className={styles.instructions}>
+          <li>Approve the Transaction</li>
+          <li>Deposit the fund</li>
+        </ul>
+        <div className={styles.balance}>
+          Your Balance: <span>{usdcBalance}</span>
+        </div>
+        <div className={styles.goal}>
+          Goal: <span>{Number(goal)}</span>
+        </div>
+        {isInsufficientFunds && (
+          <p className={styles.errorMessage}>Not enough funds</p>
+        )}
+        <div className={styles.buttons}>
+          <button
+            className={styles.approveButton}
+            onClick={onApprove}
+            disabled={isInsufficientFunds}
+          >
+            Approve
+          </button>
+          <button
+            className={styles.confirmButton}
+            onClick={onConfirm}
+            disabled={!approved || isInsufficientFunds}
+          >
+            Confirm
+          </button>
+        </div>
+        <button className={styles.closeButton} onClick={onClose}>
+          Cancle
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const GroupDetails = () => {
+  const [isPopUpVisible, setPopUpVisible] = useState(false);
+  const activeAccount= useActiveAccount();
   const location = useLocation();
   const linkData = location.state;
+  const [event, setevent] = useState(false);
+  const [approved, setApproved] = useState(false);
   const campaignaddress = linkData?.groupContractAddress
-  console.log(campaignaddress)
   const contract = getContract({
     client: client,
     chain: polygonAmoy,
     address: linkData?.groupContractAddress,
   });
+  console.log("USDC Address: ", USDC_ADDRESS)
+  const usdccontract = getContract({
+    client: client,
+    chain: polygonAmoy,
+    address: USDC_ADDRESS,
+  })
   const { data: groupcode } = useReadContract({
     contract,
     method: "function groupcode() view returns (string)",
@@ -36,10 +91,16 @@ const GroupDetails = () => {
     method: "function description() view returns (string)",
     params: [],
   });
-  const { data: goal } = useReadContract({
+  const { data: goal, isPending: loadinggoal } = useReadContract({
     contract,
     method: "function goal() view returns (uint256)",
     params: [],
+  });
+  const { data: allowance, isPending:loadingallowance } = useReadContract({
+    contract: usdccontract,
+    method:
+      "function allowance(address owner, address spender) view returns (uint256)",
+    params: [activeAccount.address, campaignaddress],
   });
   const { data: cycle } = useReadContract({
     contract,
@@ -62,7 +123,92 @@ const GroupDetails = () => {
       "function getContractBalance() view returns (uint256)",
     params: [],
   });
+  const { data: completed } = useReadContract({
+    contract,
+    method:
+      "function cycleCompleted(address, uint256) view returns (bool)",
+    params: [activeAccount.address, cycle],
+  });
 
+  const { data: usdcbalance } = useReadContract({
+    contract: usdccontract,
+    method:
+      "function balanceOf(address account) view returns (uint256)",
+    params: [activeAccount.address],
+  });
+
+  const formattedUsdcbalance = usdcbalance
+  ? (Number(usdcbalance) / 1e6).toFixed(6)
+  : "0.000000";
+
+  const handleFundClick = () => {
+    setPopUpVisible(true);
+  };
+
+  const handleClosePopUp = () => {
+    setPopUpVisible(false);
+  };
+  const preparedEvent = prepareEvent({
+    signature:
+      "event Approval(address indexed owner, address indexed spender, uint256 value)",
+  });
+  const events = watchContractEvents({
+    contract: usdccontract,
+    events: [preparedEvent],
+    onEvents: (events) => {
+      console.log(events)
+      setevent(events)
+    },
+    });
+  useEffect(() => {
+    if (event) {
+      console.log("Successfully added to Group", event[0])
+      alert(`Approved:\nBlockHash: ${event[0]['args']["blockHash"]}\nTransaction Hash: ${event[0]["transactionHash"]}`);
+      setApproved(true)
+    }
+  }, [event]);
+  useEffect(() => {
+    if (!loadinggoal && !loadingallowance) {
+      let contractallowance = Number(allowance) / 1e6;
+      console.log("Allowance: ", allowance, "goal: ", goal)
+      if ( contractallowance>= goal) {
+        console.log("Already Approved!")
+        setApproved(true);
+      } else {
+        setApproved(false);
+      }
+    }
+  }, [loadinggoal, loadingallowance, allowance, goal]);
+  const { mutate: sendTransaction } = useSendTransaction();
+  const handleApprove = () => {
+    console.log(campaignaddress)
+    const transaction = prepareContractCall({
+      contract: usdccontract,
+      method:
+        "function approve(address spender, uint256 value) returns (bool)",
+      params: [campaignaddress, Number(goal)*1e6],
+    });
+    sendTransaction(transaction);
+    console.log("Approved!");
+    // Add logic for approval
+  };
+
+  const handleConfirm = () => {
+    const transaction = prepareContractCall({
+      contract,
+      method: "function fund(uint256 _amount)",
+      params: [Number(goal)*1e6],
+    });
+    try{
+      sendTransaction(transaction);
+    }catch(error){
+      console.log(error);
+    }
+    
+    console.log("Confirmed!");
+    // Add logic for confirmation
+    setPopUpVisible(false);
+  };
   const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
 const firstTableData = [
   { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
@@ -73,12 +219,27 @@ const firstTableData = [
     <div className={styles.groups}>
       <div className={styles.titleContainer}>
         <span className={styles.title}>Group Details</span>{" "}
+        <p className={styles.title}> Group Code: {groupcode}</p>
+        <button className={styles.fundbutton} onClick={handleFundClick}>
+          Fund: $<span className={styles.goalvalue}>{String(goal)}</span>
+        </button>
         <img src={IMAGES.EDIT_ICON} alt="edit" />
       </div>
 
       <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} goal={goal} cycle={cycle} contractBalance={contractbalance} />
       <CashFlow />
       <Table headers={firstTableHeaders} data={firstTableData}  />
+
+      {isPopUpVisible && (
+        <PopUp
+          onClose={handleClosePopUp}
+          onApprove={handleApprove}
+          onConfirm={handleConfirm}
+          usdcBalance={formattedUsdcbalance}
+          goal = {goal}
+          approved={approved}
+        />
+      )}
     </div>
   );
 };

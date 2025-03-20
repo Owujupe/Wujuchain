@@ -16,8 +16,8 @@ export const NAV_ITEMS = [
     activeImage: IMAGES.DASHBOARD_ACTIVE,
   },
   {
-    name: "Groups",
-    route: ROUTES.GROUP_DETAILS,
+    name: "Joined Groups",
+    route: ROUTES.JOINED_GROUP,
     image: IMAGES.GROUPS,
     activeImage: IMAGES.GROUPS_ACTIVE,
   },

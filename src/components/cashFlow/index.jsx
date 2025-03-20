@@ -37,7 +37,7 @@ const CashFlow = () => {
             <div className={styles.beneficiaryAmount}>
               <p className={styles.outflowAmount}>
                 {"$1500.00"}
-                {"usdt"}
+                {"usdc"}
               </p>
             </div>
           </div>
