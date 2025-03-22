@@ -46,11 +46,20 @@
   transform: scale(1.05); /* Slightly enlarge button on hover */
 }
 
+/* Disabled button style */
+.fundbutton:disabled {
+  background-color: #d3d3d3; /* Grey background when disabled */
+  color: #a0a0a0; /* Grey text */
+  cursor: not-allowed; /* Show not-allowed cursor when disabled */
+  transform: none; /* Remove hover effect when disabled */
+}
+
 /* Optional: Style for the value span */
 #goalvalue {
   font-size: 18px; /* Slightly larger font for the goal value */
   font-weight: bold;
 }
+
 
 // Overlay styling
 .popupOverlay {
