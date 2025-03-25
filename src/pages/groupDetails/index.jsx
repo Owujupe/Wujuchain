@@ -70,7 +70,6 @@ const GroupDetails = () => {
     chain: polygonAmoy,
     address: linkData?.groupContractAddress,
   });
-  console.log("USDC Address: ", USDC_ADDRESS)
   const usdccontract = getContract({
     client: client,
     chain: polygonAmoy,
@@ -209,6 +208,16 @@ const GroupDetails = () => {
     // Add logic for confirmation
     setPopUpVisible(false);
   };
+  const resolve = () => {
+    const transaction = prepareContractCall({
+      contract,
+      method: "function resolveCycle()",
+      params: [],
+    });
+    sendTransaction(transaction);
+
+    
+  }
   const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
 const firstTableData = [
   { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
@@ -220,8 +229,18 @@ const firstTableData = [
       <div className={styles.titleContainer}>
         <span className={styles.title}>Group Details</span>{" "}
         <p className={styles.title}> Group Code: {groupcode}</p>
-        <button className={styles.fundbutton} onClick={handleFundClick}>
-          Fund: $<span className={styles.goalvalue}>{String(goal)}</span>
+        <button
+          className={styles.fundbutton}
+          onClick={handleFundClick}
+          disabled={cycle >= groupsize} 
+        >
+          {cycle >= groupsize ? (
+            "All cycle completed"
+          ) : (
+            <>
+              Fund: $<span className={styles.goalvalue}>{String(goal)}</span>
+            </>
+          )}
         </button>
         <img src={IMAGES.EDIT_ICON} alt="edit" />
       </div>
@@ -229,7 +248,7 @@ const firstTableData = [
       <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} goal={goal} cycle={cycle} contractBalance={contractbalance} />
       <CashFlow />
       <Table headers={firstTableHeaders} data={firstTableData}  />
-
+      <button onClick={resolve}>Resolve</button>
       {isPopUpVisible && (
         <PopUp
           onClose={handleClosePopUp}
