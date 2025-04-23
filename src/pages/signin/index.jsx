@@ -55,7 +55,7 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
               {/* </div> */}
               <div className={styles.buttonContainer}>
                 <button className={styles.joinButton}>
-                  <span><a href="https://wujupay.owujupe.com/login" className={styles.description}>Join With Email</a></span>
+                  <span><a className={styles.description} href="https://wujupay.owujupe.com" target="_blank">Join With Email</a></span>
                   <img src={IMAGES.RIGHT_ARROW} alt="right-arrow" />
                 </button>{" "}
               </div>
