@@ -20,12 +20,10 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
                 <img src={IMAGES.BLOCKCHIAN_ICON} alt="blockchain" />
               </div>
               <div className={styles.labelContainer}>
-                <span className={styles.title}>Pool on Blockchain</span>
+                <span className={styles.title}>WujuChain</span>
                 <p className={styles.description}>
-                  Pooling money through blockchain allows transparent, global
-                  contributions. Smart contracts ensure secure, automatic fund
-                  management. This democratizes investments and fosters
-                  inclusivity.
+                A platform that transforms how people access financial resources 
+                on-chain thereby promoting financial inclusion
                 </p>
               </div>
               <div className={styles.buttonContainer}>
@@ -46,10 +44,10 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
               </div>
               {/* <div> */}
               <div className={styles.labelContainer}>
-                <span className={styles.title}>Sign in With Email</span>
+                <span className={styles.title}>WujuPay</span>
                 <p className={styles.description}>
-                  Join our platform today and experience a revolution in
-                  transparent, secure, and inclusive investing.
+                A platform that transforms how underserved populations 
+                access financial resources(fiat) thereby promoting financial inclusion.
                 </p>
               </div>
               {/* </div> */}
