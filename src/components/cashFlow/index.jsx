@@ -2,7 +2,10 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 
-const CashFlow = () => {
+const CashFlow = ({goal, cycle, contractBalance, groupSize}) => {
+  const totalPooled = (Number(cycle)-1)*(Number(goal)*Number(groupSize))
+  const Cashinflow = (Number(cycle)-1)*(Number(goal)*Number(groupSize)) + Number(contractBalance)
+  console.log(cycle, goal, contractBalance)
   return (
     <section className={styles.boxSection}>
       <div className={styles.boxInflow}>
@@ -11,8 +14,7 @@ const CashFlow = () => {
             <img src={IMAGES.DOLLAR_ICON_WHITE} alt="dollar" />
             <h2 className={styles.titleInflow}>Cash inflow</h2>
           </div>
-          <p className={styles.inflowAmount}>{"$12,258.00"}</p>
-          <p className={styles.inflowStatus}>{"+1,300 this week"}</p>
+          <p className={styles.inflowAmount}>${Cashinflow}</p>
         </div>
       </div>
 
@@ -22,8 +24,8 @@ const CashFlow = () => {
             <img src={IMAGES.DOLLAR_ICON} alt="dollar" />
             <h2 className={styles.titleOutflow}>Total Pooled</h2>
           </div>
-          <p className={styles.outflowAmount}>{"$2,258.00"}</p>
-          <p className={styles.outflowStatus}>{"-1,300 this week"}</p>
+          <p className={styles.outflowAmount}>${totalPooled}</p>
+          <p className={styles.inflowStatus}>Current Cycle: {Number(cycle)}</p>
         </div>
       </div>
 
@@ -36,7 +38,7 @@ const CashFlow = () => {
             </div>
             <div className={styles.beneficiaryAmount}>
               <p className={styles.outflowAmount}>
-                {"$1500.00"}
+                ${Number(goal)*Number(groupSize)}
                 {"usdc"}
               </p>
             </div>

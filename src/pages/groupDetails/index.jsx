@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 import Balance from "../../components/balance";
@@ -59,7 +59,7 @@ const PopUp = ({ onClose, onApprove, onConfirm, usdcBalance, goal, approved }) =
 
 const GroupDetails = () => {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
-  const activeAccount= useActiveAccount();
+  const activeAccount = useActiveAccount();
   const location = useLocation();
   const linkData = location.state;
   const [event, setevent] = useState(false);
@@ -95,7 +95,7 @@ const GroupDetails = () => {
     method: "function goal() view returns (uint256)",
     params: [],
   });
-  const { data: allowance, isPending:loadingallowance } = useReadContract({
+  const { data: allowance, isPending: loadingallowance } = useReadContract({
     contract: usdccontract,
     method:
       "function allowance(address owner, address spender) view returns (uint256)",
@@ -122,6 +122,7 @@ const GroupDetails = () => {
       "function getContractBalance() view returns (uint256)",
     params: [],
   });
+
   const { data: completed } = useReadContract({
     contract,
     method:
@@ -137,8 +138,8 @@ const GroupDetails = () => {
   });
 
   const formattedUsdcbalance = usdcbalance
-  ? (Number(usdcbalance) / 1e6).toFixed(6)
-  : "0.000000";
+    ? (Number(usdcbalance) / 1e6).toFixed(6)
+    : "0.000000";
 
   const handleFundClick = () => {
     setPopUpVisible(true);
@@ -158,7 +159,7 @@ const GroupDetails = () => {
       console.log(events)
       setevent(events)
     },
-    });
+  });
   useEffect(() => {
     if (event) {
       console.log("Successfully added to Group", event[0])
@@ -170,7 +171,7 @@ const GroupDetails = () => {
     if (!loadinggoal && !loadingallowance) {
       let contractallowance = Number(allowance) / 1e6;
       console.log("Allowance: ", allowance, "goal: ", goal)
-      if ( contractallowance>= goal) {
+      if (contractallowance >= goal) {
         console.log("Already Approved!")
         setApproved(true);
       } else {
@@ -185,7 +186,7 @@ const GroupDetails = () => {
       contract: usdccontract,
       method:
         "function approve(address spender, uint256 value) returns (bool)",
-      params: [campaignaddress, Number(goal)*1e6],
+      params: [campaignaddress, Number(goal) * 1e6],
     });
     sendTransaction(transaction);
     console.log("Approved!");
@@ -196,14 +197,14 @@ const GroupDetails = () => {
     const transaction = prepareContractCall({
       contract,
       method: "function fund(uint256 _amount)",
-      params: [Number(goal)*1e6],
+      params: [Number(goal) * 1e6],
     });
-    try{
+    try {
       sendTransaction(transaction);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-    
+
     console.log("Confirmed!");
     // Add logic for confirmation
     setPopUpVisible(false);
@@ -216,14 +217,36 @@ const GroupDetails = () => {
     });
     sendTransaction(transaction);
 
-    
+
   }
   const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
-const firstTableData = [
-  { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
-  { "S/N": 2, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "unpaid" },
-  { "S/N": 3, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "next" },
-];
+  console.log(memberCount)
+  let firstTableData = []
+  for (let i = 0; i < memberCount; i++) {
+    const { data: members } = useReadContract({
+      contract,
+      method:
+        "function members(uint256) view returns (address)",
+      params: [i],
+    })
+    const { data: MemberCycleStatus } = useReadContract({
+      contract,
+      method:
+        "function cycleCompleted(address, uint256) view returns (bool)",
+      params: [members, cycle],
+    })
+    firstTableData.push(
+      { "S/N": i+1, Wallet: members, "Payment Date": "23 August, 2024", Status: MemberCycleStatus === true ? "paid" : "-" }
+    )
+    console.log(members, MemberCycleStatus)
+  }
+  
+ /* const firstTableData = [
+    { "S/N": 1, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "paid" },
+    { "S/N": 2, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "unpaid" },
+    { "S/N": 3, Wallet: "46578903394857390239", "Payment Date": "23 August, 2024", Status: "next" },
+  ];*/
+  console.log("Current Cycle", cycle, "Group size", groupsize)
   return (
     <div className={styles.groups}>
       <div className={styles.titleContainer}>
@@ -232,9 +255,9 @@ const firstTableData = [
         <button
           className={styles.fundbutton}
           onClick={handleFundClick}
-          disabled={cycle >= groupsize} 
+          disabled={cycle > groupsize}
         >
-          {cycle >= groupsize ? (
+          {cycle > groupsize ? (
             "All cycle completed"
           ) : (
             <>
@@ -246,8 +269,8 @@ const firstTableData = [
       </div>
 
       <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} goal={goal} cycle={cycle} contractBalance={contractbalance} />
-      <CashFlow />
-      <Table headers={firstTableHeaders} data={firstTableData}  />
+      <CashFlow goal={goal} cycle={cycle} contractBalance={contractbalance} groupSize={groupsize} />
+      <Table headers={firstTableHeaders} data={firstTableData} />
       <button onClick={resolve}>Resolve</button>
       {isPopUpVisible && (
         <PopUp
@@ -255,7 +278,7 @@ const firstTableData = [
           onApprove={handleApprove}
           onConfirm={handleConfirm}
           usdcBalance={formattedUsdcbalance}
-          goal = {goal}
+          goal={goal}
           approved={approved}
         />
       )}

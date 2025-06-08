@@ -109,7 +109,7 @@ const CreateGroup = () => {
       params: [
         createGroup.groupName.trim(),
         createGroup.groupPurpose.trim(),
-        1, //createGroup.amount,
+        createGroup.amount, //1
         frequency[createGroup.frequency.trim()],
         createGroup.groupSize,
         ADMIN_ADDRESS,
