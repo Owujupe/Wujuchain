@@ -219,7 +219,7 @@ const GroupDetails = () => {
 
 
   }
-  const firstTableHeaders = ["S/N", "Wallet", "Payment Date", "Status"];
+  const firstTableHeaders = ["S/N", "Wallet", "Status", "Payment Date"];
   console.log(memberCount)
   let firstTableData = []
   for (let i = 0; i < memberCount; i++) {
@@ -236,7 +236,7 @@ const GroupDetails = () => {
       params: [members, cycle],
     })
     firstTableData.push(
-      { "S/N": i+1, Wallet: members, "Payment Date": "23 August, 2024", Status: MemberCycleStatus === true ? "paid" : "-" }
+      { "S/N": i+1, Wallet: members, "Payment Date": "-", Status: MemberCycleStatus === true ? "paid" : "-" }
     )
     console.log(members, MemberCycleStatus)
   }
