@@ -18,6 +18,7 @@ const Home = () => {
       setShowWalletModal(true);
     }
   }, [address]);
+  console.log("address", address);
   return (
     <>
       <div className={styles.homeContainer}>

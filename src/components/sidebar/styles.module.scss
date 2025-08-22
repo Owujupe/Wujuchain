@@ -1,65 +1,207 @@
+// .sidebar {
+//   height: 100vh;
+//   width: 300px;
+//   background-color: #faf9fa;
+//   color: #7c7484;
+//   background-color: #f4f3f8;
+//   display: flex;
+//   flex-direction: column;
+//   border-right: 0.6px solid #cdc2d7;
+
+//   .logoSection {
+//     padding: 1.75rem 7rem 0 1.75rem;
+//     cursor: pointer;
+
+//     img {
+//       height: 62px;
+//       width: auto;
+//     }
+//   }
+
+//   .mainNav {
+//     flex: 1;
+//     padding: 2rem;
+//   }
+
+//   .bottomSection {
+//     padding: 2rem;
+//   }
+
+//   .button {
+//     padding: 16px;
+//     width: 100%;
+//     // padding: 1.75rem 1.75rem;
+//     text-align: left;
+//     display: flex;
+//     align-items: center;
+//     gap: 10px;
+//     border: none;
+//     background-color: #f4f3f8;
+//     color: #7c7484;
+//     font-size: 1.25rem;
+//     font-weight: 400;
+//     font-size: 18px;
+//     line-height: 24.04px;
+//     letter-spacing: -0.02em;
+//     text-align: left;
+//     cursor: pointer;
+//     &:not(:last-child) {
+//       width: 100%;
+//       margin-bottom: 0rem;
+//       // padding-bottom: 0px;
+//       display: flex;
+//       align-items: center;
+//       gap: 10px;
+//       color: #7c7484;
+//     }
+//   }
+//   .active {
+//     background-color: #ffffff;
+//     border-radius: 12px;
+//   }
+//   .activeButton {
+//     color: #7a28ff;
+//   }
+// }
+
 .sidebar {
   height: 100vh;
   width: 300px;
-  background-color: #faf9fa;
-  color: #7c7484;
   background-color: #f4f3f8;
+  color: #7c7484;
   display: flex;
   flex-direction: column;
   border-right: 0.6px solid #cdc2d7;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 50;
 
   .logoSection {
-    padding: 1.75rem 7rem 0 1.75rem;
+    padding: 1.75rem;
     cursor: pointer;
 
     img {
       height: 62px;
       width: auto;
+      transition: all 0.3s ease;
     }
   }
 
-  .mainNav {
+  .mainNav,
+  .bottomSection {
     flex: 1;
     padding: 2rem;
   }
 
-  .bottomSection {
-    padding: 2rem;
-  }
-
   .button {
-    padding: 16px;
-    width: 100%;
-    // padding: 1.75rem 1.75rem;
-    text-align: left;
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 16px;
     border: none;
-    background-color: #f4f3f8;
+    background: none;
     color: #7c7484;
-    font-size: 1.25rem;
-    font-weight: 400;
     font-size: 18px;
-    line-height: 24.04px;
-    letter-spacing: -0.02em;
-    text-align: left;
     cursor: pointer;
-    &:not(:last-child) {
-      width: 100%;
-      margin-bottom: 0rem;
-      // padding-bottom: 0px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #7c7484;
+    transition: all 0.3s;
+
+    img {
+      height: 24px;
+      transition: all 0.3s;
+    }
+
+    &:hover {
+      background-color: #fff;
+      border-radius: 12px;
+    }
+
+    span {
+      transition: opacity 0.3s;
     }
   }
+
   .active {
     background-color: #ffffff;
     border-radius: 12px;
   }
+
   .activeButton {
     color: #7a28ff;
+  }
+
+  /* Hamburger button styles */
+  .hamburgerButton {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+    font-size: 24px;
+    background: #7a28ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(122, 40, 255, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #6a1fd9;
+      transform: scale(1.05);
+    }
+
+    /* Make button more prominent on tablet */
+    @media (max-width: 1024px) and (min-width: 768px) {
+      font-size: 28px;
+      padding: 10px 14px;
+      background: #7a28ff;
+      box-shadow: 0 4px 12px rgba(122, 40, 255, 0.4);
+    }
+  }
+}
+
+/* Tablet and Mobile: hidden sidebar with hamburger (≤1024px) */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #f4f3f8;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .open {
+    left: 0;
+  }
+
+  /* Ensure sidebar content is properly positioned */
+  .sidebarContent {
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    padding-top: 20px;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  /* Adjust logo section for tablet/mobile */
+  .logoSection {
+    padding: 1rem 1.75rem 1rem 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Adjust navigation sections for tablet/mobile */
+  .mainNav,
+  .bottomSection {
+    padding: 1rem 1.75rem;
+  }
+
+  /* Prevent body scroll when sidebar is open */
+  body.sidebar-open {
+    overflow: hidden;
   }
 }

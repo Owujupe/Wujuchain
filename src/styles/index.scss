@@ -241,8 +241,27 @@ a {
   .ant-space-item {
     display: none !important;
   }
-
 }
 // .ant-space-compact{
 //   display: none !important;
 // }
+
+/* Backdrop overlay styles for sidebar */
+.backdrop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  /* Ensure backdrop blocks all interactions */
+  pointer-events: auto;
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
