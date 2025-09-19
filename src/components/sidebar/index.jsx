@@ -1,73 +1,3 @@
-// import React from "react";
-// import { useNavigate } from "react-router-dom";
-// import styles from "./styles.module.scss";
-// import { IMAGES } from "../../constants/assets";
-// import { ROUTES } from "../../router/routes";
-// import { NAV_ITEMS, BOTTOM_NAV_ITEMS } from "../../constants";
-// const Sidebar = ({ routeName }) => {
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className={styles.sidebar}>
-//       {/* Logo Section */}
-//       <div
-//         className={styles.logoSection}
-//         onClick={() => {
-//           navigate(ROUTES.APP);
-//         }}
-//       >
-//         <img src={IMAGES.WUJUCHAIN_ICON} alt="Logo" />
-//       </div>
-
-//       {/* Main Navigation */}
-//       <div className={styles.mainNav}>
-//         {NAV_ITEMS.map(({ name, route, image, activeImage }) => (
-//           <button
-//             key={`main-${route}`}
-//             className={`${styles.button} ${
-//               routeName === route ? styles.active : ""
-//             }`}
-//             onClick={() => {
-//               navigate(route);
-//             }}
-//           >
-//             <img src={routeName === route ? activeImage : image} alt={name} />
-//             <span
-//               className={`${routeName === route ? styles.activeButton : ""}`}
-//             >
-//               {name}
-//             </span>
-//           </button>
-//         ))}
-//       </div>
-
-//       {/* Bottom Navigation Section (Settings) */}
-//       <div className={styles.bottomSection}>
-//         {BOTTOM_NAV_ITEMS.map(({ name, route, image, activeImage }) => (
-//           <button
-//             key={`bottom-${route}`}
-//             className={`${styles.button} ${
-//               routeName === route ? styles.active : ""
-//             }`}
-//             onClick={() => {
-//               navigate(route);
-//             }}
-//           >
-//             <img src={routeName === route ? activeImage : image} alt={name} />
-//             <span
-//               className={`${routeName === route ? styles.activeButton : ""}`}
-//             >
-//               {name}
-//             </span>
-//           </button>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Sidebar;
-
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
@@ -78,7 +8,7 @@ const Sidebar = ({ routeName, isOpen, setIsOpen }) => {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
 
-  // Safety check for NAV_ITEMS and BOTTOM_NAV_ITEMS
+
   const safeNavItems = Array.isArray(NAV_ITEMS) ? NAV_ITEMS : [];
   const safeBottomNavItems = Array.isArray(BOTTOM_NAV_ITEMS)
     ? BOTTOM_NAV_ITEMS
@@ -100,17 +30,11 @@ const Sidebar = ({ routeName, isOpen, setIsOpen }) => {
     if (!isOpen) return;
 
     const handleClickOutside = (event) => {
-      // Check if click is outside sidebar and not on hamburger button
+   
       const sidebar = event.target.closest(`.${styles.sidebar}`);
       const hamburger = event.target.closest(`.${styles.hamburgerButton}`);
 
-      console.log("Click outside check:", {
-        isMobile,
-        hasSidebar: !!sidebar,
-        hasHamburger: !!hamburger,
-        target: event.target.tagName,
-        targetClass: event.target.className,
-      });
+    
 
       // Close if clicking outside sidebar (but not on hamburger)
       if (isMobile && !sidebar && !hamburger) {
@@ -125,7 +49,7 @@ const Sidebar = ({ routeName, isOpen, setIsOpen }) => {
       }
     };
 
-    // Use both mousedown and click events for better compatibility
+
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("click", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);

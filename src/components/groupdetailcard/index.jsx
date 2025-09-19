@@ -46,7 +46,7 @@ const GroupDetailCard = (groupAddress) => {
         params: [],
     });
     return (
-        <div className={styles.cardContainer}>
+        <div className={styles.cardContainer}>    
             <div>
                 <h2 className={styles.groupTitle}>{groupName}</h2>
                 <p className={styles.groupDescription}>{groupDescription}</p>

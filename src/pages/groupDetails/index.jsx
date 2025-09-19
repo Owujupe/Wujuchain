@@ -13,6 +13,7 @@ import { USDC_ADDRESS } from "../../constants/address";
 import {
   useActiveAccount,
 } from "thirdweb/react";
+import Button from "../../components/button";
 
 const PopUp = ({ onClose, onApprove, onConfirm, usdcBalance, goal, approved }) => {
   const isInsufficientFunds = Number(usdcBalance) < Number(goal);
@@ -248,7 +249,8 @@ const firstTableData = [
       <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} goal={goal} cycle={cycle} contractBalance={contractbalance} />
       <CashFlow />
       <Table headers={firstTableHeaders} data={firstTableData}  />
-      <button onClick={resolve}>Resolve</button>
+      <Button buttonStyle={styles.resolveButton} onClick={resolve} text={"Resolve"}/>
+      
       {isPopUpVisible && (
         <PopUp
           onClose={handleClosePopUp}
