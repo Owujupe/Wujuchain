@@ -29,42 +29,44 @@ const Table = ({ headers, data, actionButton }) => {
         <img src={IMAGES.FUNNEL_ICON} alt="search" />
       </div>
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            {headers.map((header, index) => (
-              <th key={index}>{header}</th>
-            ))}
-            {actionButton && <th>Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {headers.map((header, colIndex) => (
-                <td key={colIndex}>
-                  {header === "Status" ? (
-                    <StatusBadge status={row[header]} />
-                  ) : (
-                    row[header]
-                  )}
-                </td>
+      <div className={styles.tableWrapper}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              {headers.map((header, index) => (
+                <th key={index}>{header}</th>
               ))}
-              {actionButton && (
-                <td>
-                  <Button
-                    onClick={() => actionButton.onClick(row)}
-                    className={styles.actionButton}
-                    text={actionButton.label}
-                    icon={null}
-                    buttonStyle={styles.actionButton}
-                  />
-                </td>
-              )}
+              {actionButton && <th>Actions</th>}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {headers.map((header, colIndex) => (
+                  <td key={colIndex}>
+                    {header === "Status" ? (
+                      <StatusBadge status={row[header]} />
+                    ) : (
+                      row[header]
+                    )}
+                  </td>
+                ))}
+                {actionButton && (
+                  <td>
+                    <Button
+                      onClick={() => actionButton.onClick(row)}
+                      className={styles.actionButton}
+                      text={actionButton.label}
+                      icon={null}
+                      buttonStyle={styles.actionButton}
+                    />
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

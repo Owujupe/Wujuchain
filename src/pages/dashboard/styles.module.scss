@@ -1,6 +1,17 @@
 .dashboard {
   padding: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 }
+
 .titleContainer {
   font-size: 24px;
   margin-bottom: 20px;
@@ -8,12 +19,37 @@
   align-items: center;
   justify-content: space-between;
 
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
   img {
     width: 32px;
     height: 32px;
     cursor: pointer;
+
+    // Mobile breakpoint
+    @media (max-width: 767px) {
+      width: 28px;
+      height: 28px;
+    }
+
+    // Small mobile breakpoint
+    @media (max-width: 480px) {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
+
 .title {
   font-size: 1.5rem;
   font-weight: 400;
@@ -22,17 +58,54 @@
   text-align: left;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
 }
+
 .dashboardContainer {
   display: flex;
   gap: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 12px;
+  }
 }
+
 .leftContainer {
   width: 60%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    width: 100%;
+    gap: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 12px;
+  }
 }
+
 .balanceContainer,
 .groupContainer,
 .collectorsContainer {
@@ -42,7 +115,20 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 12px;
+    gap: 6px;
+  }
 }
+
 .boxBalance,
 .boxOutflow,
 .boxGroup {
@@ -54,6 +140,18 @@
   background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 16px;
+    gap: 8px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 14px;
+    gap: 6px;
+  }
 }
 
 .balanceHeader,
@@ -62,12 +160,29 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 12px;
+  }
 }
+
 .balanceHeaderTitle {
   display: flex;
   align-items: center;
   gap: 5px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 4px;
+  }
 }
+
 .balanceTitle {
   font-size: 1rem;
   font-weight: 400;
@@ -77,7 +192,20 @@
   text-decoration-skip-ink: none;
   color: #241042;
   margin: 0px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 0.9rem;
+    line-height: 12px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    line-height: 11px;
+  }
 }
+
 .topUpButton {
   display: flex;
   align-items: center;
@@ -88,7 +216,20 @@
   background-color: #7a28ff;
   color: #ffffff;
   cursor: pointer;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 16px;
+    gap: 4px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 14px;
+    gap: 3px;
+  }
 }
+
 .titleOutflow {
   font-size: 1rem;
   font-weight: 400;
@@ -98,6 +239,18 @@
   text-decoration-skip-ink: none;
   color: #241042;
   margin: 0px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 0.9rem;
+    line-height: 22px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    line-height: 20px;
+  }
 }
 
 .outflowAmount,
@@ -112,7 +265,20 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: #000000;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 1.7rem;
+    line-height: 2.3rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }
+
 .outflowCurrency,
 .balanceCurrency {
   display: flex;
@@ -122,7 +288,22 @@
   line-height: 1.7rem;
   letter-spacing: -0.02em;
   text-align: left;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    padding-right: 4px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    line-height: 1.3rem;
+    padding-right: 3px;
+  }
 }
+
 .balanceCurrencyDue,
 .outflowCurrencyDue {
   display: contents;
@@ -131,7 +312,20 @@
   line-height: 1.7rem;
   letter-spacing: -0.02em;
   text-align: left;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    line-height: 1.3rem;
+  }
 }
+
 .outflowStatus {
   font-family: GT Walsheim Pro;
   font-size: 10px;
@@ -147,13 +341,40 @@
   background-color: #fef2f2;
   color: #ef4444;
   width: 15%;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 9px;
+    line-height: 12px;
+    padding: 5px 8px;
+    width: 20%;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 8px;
+    line-height: 11px;
+    padding: 4px 6px;
+    width: 25%;
+  }
 }
+
 .balanceAmount,
 .groupContent {
   display: flex;
-
   gap: 5px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 4px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 3px;
+  }
 }
+
 .groupNumber {
   font-size: 2rem;
   font-weight: 700;
@@ -162,7 +383,20 @@
   text-align: left;
   margin: 0px;
   color: #000000;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 1.7rem;
+    line-height: 2.3rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }
+
 .groupTitle {
   font-size: 1rem;
   font-weight: 400;
@@ -174,32 +408,89 @@
   margin: 0px;
   display: flex;
   align-items: center;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 0.9rem;
+    line-height: 12px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 0.85rem;
+    line-height: 11px;
+  }
 }
+
 .groupButtons {
   display: flex;
   gap: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 12px;
+  }
 }
+
 .createButton {
   border: none !important;
   background: linear-gradient(#94e4e2, #44cfcc, #07a09cb2) !important;
 }
+
 .rightContainer {
   width: 35%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    width: 100%;
+    gap: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 12px;
+  }
 }
+
 .calendarContainer {
   width: 100%;
   background-color: #f4f3f8;
   border-radius: 10px;
   padding: 1rem;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 0.875rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 0.75rem;
+  }
 }
+
 .calendarHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
+
 .calendarTitle {
   font-family: GT Walsheim Pro;
   font-size: 17.77px;
@@ -211,7 +502,22 @@
   color: #241042;
   margin: 0px;
   padding-bottom: 10px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 16px;
+    line-height: 18px;
+    padding-bottom: 8px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 15px;
+    line-height: 17px;
+    padding-bottom: 6px;
+  }
 }
+
 .reminder {
   font-family: GT Walsheim Pro;
   font-size: 11.85px;
@@ -221,10 +527,34 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: #7a28ff;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 10px;
+    line-height: 11px;
+  }
 }
+
 .collectorsContainer {
   padding: 10px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 8px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 6px;
+  }
 }
+
 .collectorsHeader {
   display: flex;
   align-items: center;
@@ -232,18 +562,41 @@
   gap: 5px;
   margin: 0px;
 
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 4px;
+  }
 }
+
 .collectorsHeaderTitle {
   display: flex;
   align-items: center;
   gap: 5px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 4px;
+  }
 }
+
 .collectorsProfileContainer {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   border-bottom: 1px solid #cdc2d7;
   padding-bottom: 10px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 6px;
+    padding-bottom: 6px;
+  }
 }
 
 .collectorsProfile {
@@ -251,8 +604,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 5px;
-}
 
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 4px;
+  }
+}
 
 .collectorsName {
   margin: 0px;
@@ -263,7 +620,20 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: #1a0a3d;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 10px;
+    line-height: 11px;
+  }
 }
+
 .collectorsEmail {
   margin: 0px;
   font-size: 10px;
@@ -273,6 +643,18 @@
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
   color: #8b8790;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 9px;
+    line-height: 12px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 8px;
+    line-height: 11px;
+  }
 }
 
 .collectorsDate {
@@ -282,8 +664,33 @@
   text-align: left;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  color: #7A28FF;
+  color: #7a28ff;
   display: flex;
   margin: 0px;
   align-items: center;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 10px;
+    line-height: 11px;
+  }
+}
+
+// Landscape orientation for mobile
+@media (max-width: 767px) and (orientation: landscape) {
+  .dashboardContainer {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .leftContainer,
+  .rightContainer {
+    width: 50%;
+  }
 }

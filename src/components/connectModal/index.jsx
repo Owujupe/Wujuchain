@@ -1,6 +1,7 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
-import { createWallet } from "thirdweb/wallets";
+import { createThirdwebClient } from "thirdweb";
+import { createWallet, injectedProvider } from "thirdweb/wallets";
 import ModalComponent from "../modal";
 import { useConnect } from "thirdweb/react";
 import { IMAGES } from "../../constants/assets";
@@ -36,9 +37,14 @@ const ConnectModal = ({
   onCancel,
 }) => {
   const clientId = import.meta.env.VITE_PUBLIC_THIRDWEB_CLIENT_ID;
+  const walletConnectProjectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
+
+  // Create thirdweb client
+  const client = createThirdwebClient({ clientId });
 
   const { connect, isConnecting, error } = useConnect();
   const [connectionError, setConnectionError] = useState(null);
+
   // Handle connection errors
   useEffect(() => {
     if (error) {
@@ -67,12 +73,33 @@ const ConnectModal = ({
 
         {!isConnecting && (
           <>
+            {/* ✅ MetaMask button */}
             <button
               onClick={() =>
                 connect(async () => {
                   try {
                     const wallet = createWallet("io.metamask");
-                    await wallet.connect({ clientId });
+
+                    // If injected provider exists (desktop), connect directly
+                    if (injectedProvider("io.metamask")) {
+                      await wallet.connect({ client });
+                    } else {
+                      // Otherwise use WalletConnect (mobile)
+                      await wallet.connect({
+                        client,
+                        walletConnect: {
+                          // projectId: walletConnectProjectId,
+                          // showQrModal: true,
+                          metadata: {
+                            name: "Wujuchain",
+                            description: "Connect your wallet to Wujuchain",
+                            url: window.location.origin,
+                            icons: [`${window.location.origin}/favicon.ico`],
+                          },
+                        },
+                      });
+                    }
+
                     toast.success(
                       <ToastMessage message={"Connected to MetaMask"} />
                     );
@@ -87,14 +114,34 @@ const ConnectModal = ({
               className={styles.walletButton}
             >
               <span>MetaMask</span>
-              <img src={IMAGES.METAMASK_ICON} alt="right-arrow" />
+              <img src={IMAGES.METAMASK_ICON} alt="MetaMask" />
             </button>
+
+            {/* ✅ Coinbase button */}
             <button
               onClick={() =>
                 connect(async () => {
                   try {
                     const wallet = createWallet("com.coinbase.wallet");
-                    await wallet.connect({ clientId });
+
+                    if (injectedProvider("com.coinbase.wallet")) {
+                      await wallet.connect({ client });
+                    } else {
+                      await wallet.connect({
+                        client,
+                        walletConnect: {
+                          // projectId: walletConnectProjectId,
+                          // showQrModal: true,
+                          metadata: {
+                            name: "Wujuchain",
+                            description: "Connect your wallet to Wujuchain",
+                            url: window.location.origin,
+                            icons: [`${window.location.origin}/favicon.ico`],
+                          },
+                        },
+                      });
+                    }
+
                     toast.success(
                       <ToastMessage message={"Connected to Coinbase Wallet"} />
                     );
@@ -109,9 +156,16 @@ const ConnectModal = ({
               className={styles.walletButton}
             >
               <span>Coinbase Wallet</span>
-              <img src={IMAGES.COINBASE_ICON} alt="right-arrow" />
+              <img src={IMAGES.COINBASE_ICON} alt="Coinbase" />
             </button>
           </>
+        )}
+
+        {/* Error message */}
+        {connectionError && (
+          <div className={styles.errorMessage}>
+            <p>{connectionError}</p>
+          </div>
         )}
       </div>
     </ModalComponent>

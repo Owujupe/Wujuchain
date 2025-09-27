@@ -2,11 +2,10 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { IMAGES } from "../../constants/assets";
 
-
 const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.content}>
         <div className={styles.logo}>
           <img src={IMAGES.WUJUCHAIN_ICON} alt="logo" />
         </div>
@@ -33,7 +32,7 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
                 >
                   <span>Get Started</span>
                   <img src={IMAGES.RIGHT_ARROW} alt="right-arrow" />
-                </button>{" "}
+                </button>
               </div>
             </div>
           </div>
@@ -42,7 +41,6 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
               <div className={styles.blockchainIcon}>
                 <img src={IMAGES.BLOCKCHIAN_ICON} alt="blockchain" />
               </div>
-              {/* <div> */}
               <div className={styles.labelContainer}>
                 <span className={styles.title}>WujuPay</span>
                 <p className={styles.description}>
@@ -50,12 +48,20 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
                 access financial resources(fiat) thereby promoting financial inclusion.
                 </p>
               </div>
-              {/* </div> */}
               <div className={styles.buttonContainer}>
                 <button className={styles.joinButton}>
-                  <span><a className={styles.description} href="https://wujupay.owujupe.com" target="_blank">Join With Email</a></span>
+                  <span>
+                    <a 
+                      // className={styles.description} 
+                      href="https://wujupay.owujupe.com" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Join With Email
+                    </a>
+                  </span>
                   <img src={IMAGES.RIGHT_ARROW} alt="right-arrow" />
-                </button>{" "}
+                </button>
               </div>
             </div>
           </div>

@@ -6,11 +6,37 @@
   border-radius: 10px;
   background-color: #ffffff;
 
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    margin-top: 1.5rem;
+    gap: 15px;
+    margin-bottom: 0.75rem;
+    padding: 1.5rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    margin-top: 1rem;
+    gap: 12px;
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+  }
+
   .searchBar {
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    // Mobile breakpoint
+    @media (max-width: 767px) {
+      margin-bottom: 0.75rem;
+    }
+
+    // Small mobile breakpoint
+    @media (max-width: 480px) {
+      margin-bottom: 0.5rem;
+    }
 
     .searchInput {
       width: 100%;
@@ -19,6 +45,18 @@
       border: 1px solid #e5e5e5;
       border-radius: 0.5rem;
       font-family: "GT Walsheim Pro";
+
+      // Mobile breakpoint
+      @media (max-width: 767px) {
+        max-width: 300px;
+        padding: 0.625rem 0.875rem;
+      }
+
+      // Small mobile breakpoint
+      @media (max-width: 480px) {
+        max-width: 250px;
+        padding: 0.5rem 0.75rem;
+      }
 
       &::placeholder {
         color: #8f8f8f;
@@ -30,6 +68,12 @@
       }
     }
   }
+
+  .tableWrapper {
+    overflow-x: auto;
+    border-radius: 0.5rem;
+  }
+
   .statusBadge {
     display: inline-block;
     padding: 6px 0px;
@@ -39,6 +83,20 @@
     text-transform: capitalize;
     text-align: center;
     min-width: 80px;
+
+    // Mobile breakpoint
+    @media (max-width: 767px) {
+      padding: 5px 0px;
+      font-size: 14px;
+      min-width: 70px;
+    }
+
+    // Small mobile breakpoint
+    @media (max-width: 480px) {
+      padding: 4px 0px;
+      font-size: 12px;
+      min-width: 60px;
+    }
   }
 
   .statusPaid {
@@ -61,6 +119,18 @@
     border-spacing: 0 10px;
     border-collapse: separate;
 
+    // Mobile breakpoint
+    @media (max-width: 767px) {
+      border-spacing: 0 8px;
+      min-width: 600px;
+    }
+
+    // Small mobile breakpoint
+    @media (max-width: 480px) {
+      border-spacing: 0 6px;
+      min-width: 500px;
+    }
+
     thead {
       tr {
         th {
@@ -70,6 +140,18 @@
           font-weight: 500;
           color: #1a0a3d;
           font-size: 1rem;
+
+          // Mobile breakpoint
+          @media (max-width: 767px) {
+            padding: 0.875rem;
+            font-size: 0.9rem;
+          }
+
+          // Small mobile breakpoint
+          @media (max-width: 480px) {
+            padding: 0.75rem;
+            font-size: 0.85rem;
+          }
 
           &:first-child {
             // padding-top: 5px;
@@ -82,6 +164,16 @@
             border-bottom-right-radius: 0.5rem;
             text-align: end;
             padding-right: 2rem;
+
+            // Mobile breakpoint
+            @media (max-width: 767px) {
+              padding-right: 1.5rem;
+            }
+
+            // Small mobile breakpoint
+            @media (max-width: 480px) {
+              padding-right: 1rem;
+            }
           }
         }
       }
@@ -95,6 +187,18 @@
           padding: 1rem;
           color: #1a0a3d;
 
+          // Mobile breakpoint
+          @media (max-width: 767px) {
+            padding: 0.875rem;
+            font-size: 0.9rem;
+          }
+
+          // Small mobile breakpoint
+          @media (max-width: 480px) {
+            padding: 0.75rem;
+            font-size: 0.85rem;
+          }
+
           &:first-child {
             border-top-left-radius: 0.5rem;
             border-bottom-left-radius: 0.5rem;
@@ -106,6 +210,18 @@
             text-align: end;
             padding-top: 6px;
             padding-bottom: 6px;
+
+            // Mobile breakpoint
+            @media (max-width: 767px) {
+              padding-top: 5px;
+              padding-bottom: 5px;
+            }
+
+            // Small mobile breakpoint
+            @media (max-width: 480px) {
+              padding-top: 4px;
+              padding-bottom: 4px;
+            }
           }
         }
       }
@@ -113,7 +229,7 @@
   }
 }
 
-.actionButton{
+.actionButton {
   display: inline-block;
   padding: 6px 0px;
   border-radius: 20px;
@@ -122,4 +238,18 @@
   text-transform: capitalize;
   text-align: center;
   min-width: 80px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 5px 0px;
+    font-size: 14px;
+    min-width: 70px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 4px 0px;
+    font-size: 12px;
+    min-width: 60px;
+  }
 }

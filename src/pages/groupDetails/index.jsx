@@ -13,6 +13,7 @@ import { USDC_ADDRESS } from "../../constants/address";
 import {
   useActiveAccount,
 } from "thirdweb/react";
+import Button from "../../components/button";
 
 const PopUp = ({ onClose, onApprove, onConfirm, usdcBalance, goal, approved }) => {
   const isInsufficientFunds = Number(usdcBalance) < Number(goal);
@@ -156,13 +157,13 @@ const GroupDetails = () => {
     contract: usdccontract,
     events: [preparedEvent],
     onEvents: (events) => {
-      console.log(events)
+      // console.log(events)
       setevent(events)
     },
   });
   useEffect(() => {
     if (event) {
-      console.log("Successfully added to Group", event[0])
+      // console.log("Successfully added to Group", event[0])
       alert(`Approved:\nBlockHash: ${event[0]['args']["blockHash"]}\nTransaction Hash: ${event[0]["transactionHash"]}`);
       setApproved(true)
     }
@@ -170,9 +171,15 @@ const GroupDetails = () => {
   useEffect(() => {
     if (!loadinggoal && !loadingallowance) {
       let contractallowance = Number(allowance) / 1e6;
+<<<<<<< HEAD
       console.log("Allowance: ", allowance, "goal: ", goal)
       if (contractallowance >= goal) {
         console.log("Already Approved!")
+=======
+      // console.log("Allowance: ", allowance, "goal: ", goal)
+      if ( contractallowance>= goal) {
+        // console.log("Already Approved!")
+>>>>>>> feature/responsive-design
         setApproved(true);
       } else {
         setApproved(false);
@@ -181,7 +188,7 @@ const GroupDetails = () => {
   }, [loadinggoal, loadingallowance, allowance, goal]);
   const { mutate: sendTransaction } = useSendTransaction();
   const handleApprove = () => {
-    console.log(campaignaddress)
+    // console.log(campaignaddress)
     const transaction = prepareContractCall({
       contract: usdccontract,
       method:
@@ -189,7 +196,7 @@ const GroupDetails = () => {
       params: [campaignaddress, Number(goal) * 1e6],
     });
     sendTransaction(transaction);
-    console.log("Approved!");
+    // console.log("Approved!");
     // Add logic for approval
   };
 
@@ -204,8 +211,13 @@ const GroupDetails = () => {
     } catch (error) {
       console.log(error);
     }
+<<<<<<< HEAD
 
     console.log("Confirmed!");
+=======
+    
+    // console.log("Confirmed!");
+>>>>>>> feature/responsive-design
     // Add logic for confirmation
     setPopUpVisible(false);
   };
@@ -269,9 +281,16 @@ const GroupDetails = () => {
       </div>
 
       <Balance campaignAddress={campaignaddress} groupSize={groupsize} groupCount={memberCount} goal={goal} cycle={cycle} contractBalance={contractbalance} />
+<<<<<<< HEAD
       <CashFlow goal={goal} cycle={cycle} contractBalance={contractbalance} groupSize={groupsize} />
       <Table headers={firstTableHeaders} data={firstTableData} />
       <button onClick={resolve}>Resolve</button>
+=======
+      <CashFlow />
+      <Table headers={firstTableHeaders} data={firstTableData}  />
+      <Button buttonStyle={styles.resolveButton} onClick={resolve} text={"Resolve"}/>
+      
+>>>>>>> feature/responsive-design
       {isPopUpVisible && (
         <PopUp
           onClose={handleClosePopUp}

@@ -26,37 +26,58 @@
 
 /* Style for the button */
 .fundbutton {
-  background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
-  font-size: 16px; /* Font size */
-  font-weight: bold; /* Bold text */
-  padding: 12px 20px; /* Padding inside the button */
-  border: none; /* Remove default border */
-  border-radius: 8px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  display: flex; /* Flexbox for aligning content */
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition effects */
+  background-color: #4CAF50;
+  color: white; 
+  font-size: 16px; 
+  font-weight: bold; 
+  padding: 12px 20px; 
+  border: none; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  transition: background-color 0.3s ease, transform 0.2s ease; 
+  @media (max-width: 600px) {
+    flex-basis: 100%; 
+    justify-content: center; 
+  }
 }
 
 /* Hover effect */
 .fundbutton:hover {
-  background-color: #45a049; /* Darker green on hover */
-  transform: scale(1.05); /* Slightly enlarge button on hover */
+  background-color: #45a049; 
+  transform: scale(1.05); 
 }
 
 /* Disabled button style */
 .fundbutton:disabled {
-  background-color: #d3d3d3; /* Grey background when disabled */
-  color: #a0a0a0; /* Grey text */
-  cursor: not-allowed; /* Show not-allowed cursor when disabled */
-  transform: none; /* Remove hover effect when disabled */
+  background-color: #d3d3d3; 
+  color: #a0a0a0; 
+  cursor: not-allowed; 
+  transform: none; 
+}
+
+
+@media (max-width: 600px) {
+  .titleContainer {
+    flex-wrap: wrap; 
+
+    .fundbutton {
+      order: 2;       
+      width: 100%;    
+      margin-top: 10px;
+    }
+
+    img {
+      order: 1; 
+    }
+  }
 }
 
 /* Optional: Style for the value span */
 #goalvalue {
-  font-size: 18px; /* Slightly larger font for the goal value */
+  font-size: 18px; 
   font-weight: bold;
 }
 
@@ -184,5 +205,20 @@
   }
 }
 
+.resolveButton {
+  display: inline-flex;
+  align-items: center;    
+  justify-content: center;   
+  padding: 8px 12px;          
+  min-width: 60px;            
+  max-width: 150px;        
+  width: auto;                
+  text-align: center;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
 
+}
