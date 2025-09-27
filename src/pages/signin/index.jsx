@@ -53,7 +53,7 @@ const SignIn = ({ isLoggedIn, setIsLoggedIn }) => {
                   <span>
                     <a 
                       // className={styles.description} 
-                      href="https://wujupay.owujupe.com" 
+                      href="https://wujupay.ca" 
                       target="_blank"
                       rel="noopener noreferrer"
                     >
