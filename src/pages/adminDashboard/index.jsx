@@ -17,7 +17,7 @@ const AdminDashboard = () => {
       Amount: "50 USDC",
       Creator: "John Doe",
       Frequency: "Monthly",
-      Members: "10 Persons" ,
+      Members: "10 Persons",
     },
     {
       Group: "Group B",
@@ -35,22 +35,26 @@ const AdminDashboard = () => {
     },
   ];
   const handleActionClick = (row) => {
-    console.log("Action clicked for row:", row);
+    // console.log("Action clicked for row:", row);
   };
   return (
     <div className={styles.dashboard}>
       <div className={styles.titleContainer}>
-        <span className={styles.title}>Admin Dashboard</span>{" "}
+        <span className={styles.title}>Admin Dashboard</span>
       </div>
+
       <div className={styles.groupsDetails}>
         <Card title={"Total Members"} description={"560K"} />
         <Card title={"Members"} description={"1.655M"} />
       </div>
-      <Table
-        headers={secondTableHeaders}
-        data={secondTableData}
-        actionButton={{ label: "Action", onClick: handleActionClick }}
-      />
+
+      <div className={styles.tableContainer}>
+        <Table
+          headers={secondTableHeaders}
+          data={secondTableData}
+          actionButton={{ label: "Action", onClick: handleActionClick }}
+        />
+      </div>
     </div>
   );
 };

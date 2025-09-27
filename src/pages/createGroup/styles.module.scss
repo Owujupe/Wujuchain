@@ -2,7 +2,17 @@
   display: flex;
   justify-content: flex-start;
   flex: 1 auto;
-  background: #FAF9FA;
+  background: #faf9fa;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    min-height: 100vh;
+  }
 }
 
 .leftSection {
@@ -11,7 +21,19 @@
   align-items: center;
   justify-content: center;
   align-items: baseline;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 1rem 0.5rem 0;
+    justify-content: flex-start;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 0.875rem 0.5rem 0;
+  }
 }
+
 .backButton {
   display: flex;
   align-items: center;
@@ -23,13 +45,40 @@
   padding: 0.5rem 1rem;
   font-size: 14px;
   font-weight: 400;
-  color: #1C5367;
+  color: #1c5367;
   background: transparent;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 0.4rem 0.875rem;
+    font-size: 13px;
+    gap: 0.4rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 0.375rem 0.75rem;
+    font-size: 12px;
+    gap: 0.3rem;
+  }
 }
+
 .rightSection {
   flex: 0 0 40%;
   padding: 4.25rem 0rem;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    flex: 1;
+    padding: 2rem 1rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 1.5rem 0.75rem;
+  }
 }
+
 .title {
   font-size: 21px;
   font-weight: 700;
@@ -39,5 +88,35 @@
   text-align: left;
   margin: 0;
   padding-bottom: 1.5rem;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 19px;
+    line-height: 20px;
+    padding-bottom: 1.25rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 18px;
+    line-height: 19px;
+    padding-bottom: 1rem;
+  }
 }
 
+// Landscape orientation for mobile
+@media (max-width: 767px) and (orientation: landscape) {
+  .container {
+    flex-direction: row;
+  }
+
+  .leftSection {
+    padding: 1rem 0.5rem 0;
+    justify-content: center;
+  }
+
+  .rightSection {
+    flex: 0 0 60%;
+    padding: 2rem 1rem;
+  }
+}

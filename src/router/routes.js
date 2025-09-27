@@ -1,11 +1,11 @@
 export const ROUTES = {
   APP: "/",
-  ADMIN:"/admin",
+  ADMIN: "/admin",
   SIGNIN: "/signin",
   DASHBOARD: "/dashboard",
   CREATE_GROUP: "/create-group",
   JOIN_GROUP: "/join-group",
-  GROUPS:"/groups",
+  GROUPS: "/groups",
   GROUP_DETAILS: "/group-details",
   JOINED_GROUP: "/joined-group",
   SETTING: "/setting",

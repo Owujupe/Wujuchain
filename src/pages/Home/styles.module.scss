@@ -1,35 +1,99 @@
 .homeContainer {
-  padding: 4.25rem 3rem;
+  padding: 2rem 1.5rem;
   display: flex;
-  gap: 5rem;
-  background: #FAF9FA;
+  flex-direction: column;
+  gap: 3rem;
+  background: #faf9fa;
+  min-height: 100vh;
+
+  // Tablet breakpoint
+  @media (min-width: 768px) {
+    padding: 3rem 2rem;
+    gap: 4rem;
+  }
+
+  // Desktop breakpoint
+  @media (min-width: 1024px) {
+    padding: 4.25rem 3rem;
+    flex-direction: row;
+    gap: 5rem;
+  }
 }
 
 .leftSection {
-  flex: 0 0 50%;
+  flex: 1;
+
+  // Mobile and tablet - don't take full width
+  @media (max-width: 1023px) {
+    flex: none;
+    width: 100%;
+  }
+
   p {
     color: #241042;
-    line-height: 2.6rem;
-    font-size: 2.6rem;
+    line-height: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin: 0;
     letter-spacing: -0.02em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      line-height: 2.3rem;
+      font-size: 2.3rem;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      line-height: 2.6rem;
+      font-size: 2.6rem;
+    }
   }
 }
+
 .welcomeContainer {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding-bottom: 0.75rem;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
 
   span {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: #241042;
     font-weight: 400;
-    line-height: 1.5rem;
+    line-height: 1.3rem;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      font-size: 1.25rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  img {
+    width: 1.2rem;
+    height: 1.2rem;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
   }
 }
 
@@ -37,7 +101,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
+
+  // Tablet breakpoint
+  @media (min-width: 768px) {
+    gap: 1.5rem;
+  }
 }
 
 .groupContainer {
@@ -46,91 +115,292 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 1.25rem;
-  padding: 1.2rem 1.75rem;
-  border-radius: 24px;
-  box-shadow: 0px 15px 10px -3px rgba(16, 24, 40, 0.1),
-    0px 4px 6px -4px rgba(16, 24, 40, 0.1);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0px 8px 6px -3px rgba(16, 24, 40, 0.1),
+    0px 3px 4px -2px rgba(16, 24, 40, 0.1);
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 12px 8px -3px rgba(16, 24, 40, 0.15),
+      0px 4px 6px -2px rgba(16, 24, 40, 0.1);
+  }
+
+  // Tablet breakpoint
+  @media (min-width: 768px) {
+    border-radius: 1.25rem;
+    padding: 1.1rem 1.5rem;
+    box-shadow: 0px 12px 8px -3px rgba(16, 24, 40, 0.1),
+      0px 4px 6px -2px rgba(16, 24, 40, 0.1);
+  }
+
+  // Desktop breakpoint
+  @media (min-width: 1024px) {
+    border-radius: 1.25rem;
+    padding: 1.2rem 1.75rem;
+    box-shadow: 0px 15px 10px -3px rgba(16, 24, 40, 0.1),
+      0px 4px 6px -4px rgba(16, 24, 40, 0.1);
+  }
 
   h2 {
-    font-size: 2rem;
-    line-height: 2.5rem;
+    font-size: 1.5rem;
+    line-height: 1.9rem;
     font-weight: 700;
     margin: 0;
-    letter-spacing: -0.9px;
-    color: #f8f7f9;
     letter-spacing: -0.02em;
+    color: #f8f7f9;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      font-size: 2rem;
+      line-height: 2.5rem;
+    }
   }
+
   span {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     color: #94e4e2;
-    font-size: 1.75rem;
-    line-height: 2.5rem;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
     font-weight: 700;
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      font-size: 1.6rem;
+      line-height: 2.1rem;
+      padding-bottom: 0.6rem;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      font-size: 1.75rem;
+      line-height: 2.5rem;
+      padding-bottom: 0.75rem;
+      gap: 0.5rem;
+    }
   }
 
   p {
     color: #f8f7f9;
-    line-height: 1.6;
-    font-size: 1rem;
+    line-height: 1.5;
+    font-size: 0.9rem;
     font-weight: 400;
     letter-spacing: -0.02em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
   }
 }
 
 .joinContainer {
-  background-image: url("/public/images/dashboard/card-background-2.png"),
+  background-image: url("/images/dashboard/card-background-2.png"),
     linear-gradient(180deg, #94e4e2 0%, #44cfcc 53.4%, #07a09c 100%);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 1.25rem;
-  padding: 1.2rem 1.75rem;
-  border-radius: 24px;
-  box-shadow: 0px 15px 10px -3px rgba(16, 24, 40, 0.1),
-    0px 4px 6px -4px rgba(16, 24, 40, 0.1);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0px 8px 6px -3px rgba(16, 24, 40, 0.1),
+    0px 3px 4px -2px rgba(16, 24, 40, 0.1);
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 12px 8px -3px rgba(16, 24, 40, 0.15),
+      0px 4px 6px -2px rgba(16, 24, 40, 0.1);
+  }
+
+  // Tablet breakpoint
+  @media (min-width: 768px) {
+    border-radius: 1.25rem;
+    padding: 1.1rem 1.5rem;
+    box-shadow: 0px 12px 8px -3px rgba(16, 24, 40, 0.1),
+      0px 4px 6px -2px rgba(16, 24, 40, 0.1);
+  }
+
+  // Desktop breakpoint
+  @media (min-width: 1024px) {
+    border-radius: 1.25rem;
+    padding: 1.2rem 1.75rem;
+    box-shadow: 0px 15px 10px -3px rgba(16, 24, 40, 0.1),
+      0px 4px 6px -4px rgba(16, 24, 40, 0.1);
+  }
+
   h2 {
-    font-size: 2rem;
-    line-height: 2.5rem;
+    font-size: 1.5rem;
+    line-height: 1.9rem;
     font-weight: 700;
     margin: 0;
-    letter-spacing: -0.9px;
+    letter-spacing: -0.02em;
     color: #1a0a3d;
+    text-align: left;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      font-size: 2rem;
+      line-height: 2.5rem;
+    }
   }
+
   span {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     color: #f8f7f9;
-    font-size: 1.75rem;
-    line-height: 2.5rem;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
     font-weight: 700;
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      font-size: 1.6rem;
+      line-height: 2.1rem;
+      padding-bottom: 0.6rem;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      font-size: 1.75rem;
+      line-height: 2.5rem;
+      padding-bottom: 0.75rem;
+      gap: 0.5rem;
+    }
   }
 
   p {
     color: #1a0a3d;
-    line-height: 1.6;
-    font-size: 1rem;
+    line-height: 1.5;
+    font-size: 0.9rem;
     font-weight: 400;
     letter-spacing: -0.02em;
     text-align: left;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+
+    // Tablet breakpoint
+    @media (min-width: 768px) {
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    // Desktop breakpoint
+    @media (min-width: 1024px) {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
   }
 }
 
+// Additional responsive utilities
+@media (max-width: 480px) {
+  .homeContainer {
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .leftSection p {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+  }
+
+  .welcomeContainer span {
+    font-size: 1rem;
+    line-height: 1.2rem;
+  }
+
+  .groupContainer,
+  .joinContainer {
+    padding: 0.875rem 1rem;
+    border-radius: 0.875rem;
+
+    h2 {
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+    }
+
+    span {
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Landscape orientation adjustments for mobile
+@media (max-width: 768px) and (orientation: landscape) {
+  .homeContainer {
+    padding: 1.5rem 2rem;
+    gap: 2.5rem;
+  }
+
+  .leftSection p {
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+  }
+}
+
+// High DPI displays
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .groupContainer,
+  .joinContainer {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+// Touch device optimizations
+@media (hover: none) and (pointer: coarse) {
+  .groupContainer,
+  .joinContainer {
+    &:hover {
+      transform: none;
+      box-shadow: 0px 8px 6px -3px rgba(16, 24, 40, 0.1),
+        0px 3px 4px -2px rgba(16, 24, 40, 0.1);
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
 
 .modalOverlay {
   position: fixed;

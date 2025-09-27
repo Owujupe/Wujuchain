@@ -1,6 +1,17 @@
 .dashboard {
   padding: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    padding: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 }
+
 .titleContainer {
   font-size: 24px;
   margin-bottom: 20px;
@@ -8,12 +19,37 @@
   align-items: center;
   justify-content: space-between;
 
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
   img {
     width: 32px;
     height: 32px;
     cursor: pointer;
+
+    // Mobile breakpoint
+    @media (max-width: 767px) {
+      width: 28px;
+      height: 28px;
+    }
+
+    // Small mobile breakpoint
+    @media (max-width: 480px) {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
+
 .title {
   font-size: 1.5rem;
   font-weight: 400;
@@ -22,17 +58,64 @@
   text-align: left;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
 }
+
 .dashboardContainer {
   display: flex;
   gap: 20px;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    gap: 15px;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 10px;
+  }
 }
+
 .groupsDetails {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-bottom: 1rem;
   padding: 2rem;
   border-radius: 10px;
   background-color: #ffffff;
+
+  // Mobile breakpoint
+  @media (max-width: 767px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  // Small mobile breakpoint
+  @media (max-width: 480px) {
+    gap: 12px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+// Landscape orientation for mobile
+@media (max-width: 767px) and (orientation: landscape) {
+  .groupsDetails {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
 }
