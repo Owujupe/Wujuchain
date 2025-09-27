@@ -19,19 +19,6 @@
   }
 }
 
-.content {
-  padding: 1.5rem 0;
-
-  // Tablet breakpoint
-  @media (min-width: 640px) {
-    padding: 2rem 0;
-  }
-
-  // Desktop breakpoint
-  @media (min-width: 1024px) {
-    padding: 2.5rem 0;
-  }
-}
 
 .heading {
   font-size: 1.75rem;

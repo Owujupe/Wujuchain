@@ -156,13 +156,13 @@ const GroupDetails = () => {
     contract: usdccontract,
     events: [preparedEvent],
     onEvents: (events) => {
-      console.log(events)
+      // console.log(events)
       setevent(events)
     },
     });
   useEffect(() => {
     if (event) {
-      console.log("Successfully added to Group", event[0])
+      // console.log("Successfully added to Group", event[0])
       alert(`Approved:\nBlockHash: ${event[0]['args']["blockHash"]}\nTransaction Hash: ${event[0]["transactionHash"]}`);
       setApproved(true)
     }
@@ -170,9 +170,9 @@ const GroupDetails = () => {
   useEffect(() => {
     if (!loadinggoal && !loadingallowance) {
       let contractallowance = Number(allowance) / 1e6;
-      console.log("Allowance: ", allowance, "goal: ", goal)
+      // console.log("Allowance: ", allowance, "goal: ", goal)
       if ( contractallowance>= goal) {
-        console.log("Already Approved!")
+        // console.log("Already Approved!")
         setApproved(true);
       } else {
         setApproved(false);
@@ -181,7 +181,7 @@ const GroupDetails = () => {
   }, [loadinggoal, loadingallowance, allowance, goal]);
   const { mutate: sendTransaction } = useSendTransaction();
   const handleApprove = () => {
-    console.log(campaignaddress)
+    // console.log(campaignaddress)
     const transaction = prepareContractCall({
       contract: usdccontract,
       method:
@@ -189,7 +189,7 @@ const GroupDetails = () => {
       params: [campaignaddress, Number(goal)*1e6],
     });
     sendTransaction(transaction);
-    console.log("Approved!");
+    // console.log("Approved!");
     // Add logic for approval
   };
 
@@ -205,7 +205,7 @@ const GroupDetails = () => {
       console.log(error);
     }
     
-    console.log("Confirmed!");
+    // console.log("Confirmed!");
     // Add logic for confirmation
     setPopUpVisible(false);
   };

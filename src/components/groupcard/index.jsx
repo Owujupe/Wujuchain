@@ -5,11 +5,12 @@ import { useReadContract } from "thirdweb/react";
 import { ROUTES } from "../../router/routes";
 import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
+import { IMAGES } from "../../constants/assets";
 
 const GroupCard = (groupAddress) => {
   const navigate = useNavigate();
   const contractaddress = groupAddress.groupAddress;
-  console.log("GroupAddress ", contractaddress, typeof contractaddress);
+  // console.log("GroupAddress ", contractaddress, typeof contractaddress);
 
   const contract = getContract({
     client: client,
@@ -70,21 +71,11 @@ const GroupCard = (groupAddress) => {
         }
         className={styles.viewGroupButton}
       >
-        Join Group
-        <svg
-          className={styles.viewGroupIcon}
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="-30 0 52 10"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
-          />
-        </svg>
+        <span className={styles.viewGroupButtonText}> View My Group </span>
+        <div className={styles.viewGroupIconContainer}>
+    
+            <img src={IMAGES.RIGHT_ARROW} alt="right-arrow" />
+        </div>
       </button>
     </div>
   );

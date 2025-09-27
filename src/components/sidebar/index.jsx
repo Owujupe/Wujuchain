@@ -38,7 +38,7 @@ const Sidebar = ({ routeName, isOpen, setIsOpen }) => {
 
       // Close if clicking outside sidebar (but not on hamburger)
       if (isMobile && !sidebar && !hamburger) {
-        console.log("Closing sidebar - click outside detected");
+        // console.log("Closing sidebar - click outside detected");
         setIsOpen(false);
       }
     };

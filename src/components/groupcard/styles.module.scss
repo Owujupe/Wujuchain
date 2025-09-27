@@ -37,8 +37,11 @@
   flex: 1;
 }
 
+
 .viewGroupButton {
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
   align-items: center;
   background-color: #906ae3;
   color: #fff;
@@ -49,7 +52,6 @@
   border: 2px solid transparent;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: auto;
 
   &:hover {
     background-color: #672c91;
@@ -67,10 +69,29 @@
 }
 
 .viewGroupIcon {
-  margin-left: 0.5rem;
+  margin-left: 0.5rem; /* Reduced space between text and icon */
+  margin-right: 0.5rem;
   transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .viewGroupButton:hover .viewGroupIcon {
-  transform: translateX(5px);
+  transform: translateX(5px); /* Slightly smaller movement on hover */
+}
+.viewGroupButtonText {
+  white-space: nowrap;
+}
+.viewGroupIconContainer {
+  width: 100%;
+  height: 100%;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0.5rem;
 }

@@ -1,31 +1,39 @@
 .main {
-    margin: 0 auto;
-    max-width: 7xl;
-    padding: 4rem 1rem;
-    //margin-top: 1rem;
-  
-    @media (min-width: 640px) {
-      padding: 4rem 1.5rem;
-    }
-  
-    @media (min-width: 1024px) {
-      padding: 4rem 2rem;
-    }
+  margin: 0 auto;
+  max-width: 1280px; // "7xl" isn't valid CSS, set a pixel value
+  padding: 4rem 1rem;
+
+  @media (min-width: 640px) {
+    padding: 4rem 1.5rem;
   }
-  
-  .content {
-    padding: 2.5rem 0;
+
+  @media (min-width: 1024px) {
+    padding: 4rem 2rem;
   }
-  
-  .heading {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+}
+
+
+.heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr; // default: single column (mobile)
+  gap: 1rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr); // tablets
   }
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr); // desktops
   }
-  
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(4, 1fr); // large desktops
+  }
+}
+

@@ -50,13 +50,13 @@ const CreateGroup = () => {
     contract: contract,
     events: [preparedEvent],
     onEvents: (events) => {
-      console.log(typeof(events))
+      // console.log(typeof(events))
       setevent(events)
     },
     });
   useEffect(() => {
     if (event) {
-      console.log("Transaction result", event[0])
+      // console.log("Transaction result", event[0])
       alert(`Successfully created: ${event[0]['args']["groupname"]}\nTransaction Hash: ${event[0]["transactionHash"]}\nGroup Code: ${groupcode}\nContract Address: ${event[0]["args"]["campaignAddress"]}`);
       setContractAddress(event[0]['args']["campaignAddress"])
       setLoading(false);
@@ -99,7 +99,7 @@ const CreateGroup = () => {
     const randomChar2 = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
     const ranNum = String(randomNumber)
     const groupCode=randomChar1 + randomChar2+ ranNum
-    console.log(groupCode)
+    // console.log(groupCode)
     setGroupCode(groupCode)
     //Add Create Group Function on Factory Contract
     const transaction = prepareContractCall({

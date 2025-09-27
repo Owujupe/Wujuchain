@@ -97,13 +97,13 @@ const JoinGroup = () => {
     contract: fundingcontract,
     events: [preparedEvent],
     onEvents: (events) => {
-      console.log(events)
+      // console.log(events)
       setevent(events)
     },
     });
   useEffect(() => {
     if (event) {
-      console.log("Successfully added to Group", event[0])
+      // console.log("Successfully added to Group", event[0])
       alert(`Successfully Added to: ${event[0]['args']["campaignAddress"]}\nTransaction Hash: ${event[0]["transactionHash"]}`);
       setLoading(false);
       setModalOpen(false);
@@ -113,7 +113,7 @@ const JoinGroup = () => {
   const { mutate: sendTransaction } = useSendTransaction();
   const onConfirm = () => {
     setLoading(true);
-    console.log("Sending Transaction: ", campaignaddress, groupcode)
+    // console.log("Sending Transaction: ", campaignaddress, groupcode)
     //ThirdWeb
     
     const transaction = prepareContractCall({

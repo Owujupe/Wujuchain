@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../router/routes";
 import ConnectModal from "../../components/connectModal";
 import { useActiveAccount } from "thirdweb/react";
+import { Address } from "@ant-design/web3";
+
 import { Button } from "antd";
 const Home = () => {
   const activeAccount = useActiveAccount();
@@ -18,13 +20,21 @@ const Home = () => {
       setShowWalletModal(true);
     }
   }, [address]);
-  console.log("address", address);
+
   return (
     <>
       <div className={styles.homeContainer}>
         <div className={styles.leftSection}>
           <div className={styles.welcomeContainer}>
-            <span>Welcome, John Doe</span>{" "}
+            <span>
+              Welcome{address && ","}{" "}
+              <Address
+                className={styles.address}
+                ellipsis
+                address={address}
+                tooltip={false}
+              />
+            </span>{" "}
             <img src={IMAGES.CELEBRATE_FILL} alt="Celebrate" />
           </div>
           <p>What do you have in mind?</p>
@@ -40,7 +50,7 @@ const Home = () => {
               group <img src={IMAGES.SPARKLE} alt="sparkle" />
             </span>
             <p>
-              Create your debut group on Owujupe. Let's kickstart this savings
+              Create your debut group on WujuChain. Lets kickstart this savings
               journey together!
             </p>
           </div>
@@ -63,7 +73,9 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {showWalletModal && !address && <ConnectModal onOpen={showWalletModal} setOpen={setShowWalletModal} />}
+      {showWalletModal && !address && (
+        <ConnectModal onOpen={showWalletModal} setOpen={setShowWalletModal} />
+      )}
     </>
   );
 };

@@ -35,7 +35,7 @@ const AdminDashboard = () => {
     },
   ];
   const handleActionClick = (row) => {
-    console.log("Action clicked for row:", row);
+    // console.log("Action clicked for row:", row);
   };
   return (
     <div className={styles.dashboard}>
