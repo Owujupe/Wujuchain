@@ -1,1 +1,0 @@
-import{w as a,d1 as e}from"./index-BIGtf26a.js";async function d(c){return a(()=>e(c),{cacheKey:`${c.contract.chain.id}:${c.contract.address}:decimals`,cacheTime:Number.POSITIVE_INFINITY})}export{d as decimals};
