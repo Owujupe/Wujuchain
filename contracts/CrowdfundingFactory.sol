@@ -17,6 +17,19 @@ contract CrowdfundingFactory {
 
     Campaign[] public campaigns;
     mapping(address => Campaign[]) public userCampaigns;
+    mapping(address => address[]) public myCampaigns;
+
+    event CampaignCreated(
+        address indexed campaignAddress,
+        address indexed owner,
+        string groupname,
+        uint256 creationTime,
+        uint256 groupSize
+    );
+    event MemberAdded(
+        address indexed newMember,
+        address indexed campaignAddress
+    );
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not owner!");
@@ -36,8 +49,9 @@ contract CrowdfundingFactory {
         string memory _description,
         uint256 _goal,
         uint256 _durationInDays,
-        uint256 _groupsize
-        address admit
+        uint256 _groupsize,
+        address _admit,
+        string memory _groupcode
     ) external notPaused {
         Crowdfunding newCampaign = new Crowdfunding (
             msg.sender,
@@ -46,7 +60,8 @@ contract CrowdfundingFactory {
             _goal,
             _durationInDays,
             _groupsize,
-            _admit
+            _admit,
+            _groupcode
         );
         address campaignAddress = address(newCampaign);
         Campaign memory campaign = Campaign({
@@ -58,6 +73,23 @@ contract CrowdfundingFactory {
         }); 
         campaigns.push(campaign);
         userCampaigns[msg.sender].push(campaign);
+        emit CampaignCreated(
+            campaignAddress,
+            msg.sender,
+            _groupname,
+            block.timestamp,
+            _groupsize
+        );
+    }
+
+    function addCampaignMember(address _campaignAddress, string memory _groupCode) external {
+        Crowdfunding campaign = Crowdfunding(_campaignAddress); 
+        campaign.addGroupMember(msg.sender, _groupCode);  
+        myCampaigns[msg.sender].push(_campaignAddress);
+        emit MemberAdded(msg.sender, _campaignAddress);
+    }
+    function getJoinedCampaigns(address _user)external view returns (address[] memory){
+        return myCampaigns[_user];
     }
 
     function getUserCampaigns(address _user) external view returns (Campaign[] memory){

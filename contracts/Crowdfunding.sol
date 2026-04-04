@@ -1,7 +1,7 @@
 
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract Crowdfunding {
     string public groupname;
     string public description;
@@ -10,6 +10,8 @@ contract Crowdfunding {
     address public owner;
     uint256 public groupSize;
     mapping(address => bool) public groupMembers;
+    address[] public members; 
+    mapping(address => uint256) public memberIndex;
     uint256 public memberCount;
     uint256 public cycle;
     address private admit;
@@ -21,6 +23,8 @@ contract Crowdfunding {
     mapping(uint256=>address) public paidoutorder;
     uint256 public order;
     address [] public keys;
+    string public groupcode;
+    IERC20 public USDC;
 
     constructor(
         address _owner,
@@ -29,7 +33,8 @@ contract Crowdfunding {
         uint256 _goal,
         uint256 _duraytionInDays,
         uint256 _groupSize,
-        address _admit
+        address _admit,
+        string memory _groupcode
     ) {
         require(_groupSize>0, "Group size must be greater than 0");
         owner = _owner;
@@ -39,12 +44,16 @@ contract Crowdfunding {
         deadline = block.timestamp + (_duraytionInDays * 1 days);
         groupSize = _groupSize;
         admit = _admit;
+        groupcode = _groupcode;
         groupMembers[_owner] = true ;
+        members.push(_owner);
         paidoutorder[1] = _owner;
         memberCount = 1;
         period = _duraytionInDays * 1 days;
         cycle = 1;
         order = 2;
+        //USDC contract on AMOY
+        USDC = IERC20(0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582);
     }
 
     modifier onlyGroupMember() {
@@ -60,25 +69,27 @@ contract Crowdfunding {
         _;
     }
 
-    function fund() public payable onlyGroupMember{
-        require(msg.value > 0, "The deposition should be greater than 0." );
+    function fund(uint _amount) public onlyGroupMember{
+        //require(msg.value > 0, "The deposition should be greater than 0." );
+        require(_amount > 0, "The deposition should be greater than 0." );
         require(!cycleCompleted[msg.sender][cycle], "Already funded");
         require(block.timestamp < deadline, "The Current Cycle has ended");
         require(cycle <= groupSize, "All cycles are ended.");
+        require(USDC.transferFrom(msg.sender, address(this), _amount), "USDC transfer failed");
         cycleCompleted[msg.sender][cycle] = true;
         paidcounter ++;
-        cycleContribution[msg.sender][cycle]=msg.value;
+        cycleContribution[msg.sender][cycle] = _amount;
         keys.push(msg.sender);
         //Auto Withdraw //Reserved for modification
         if (paidcounter == groupSize) {
-            withdraw(paidoutorder[cycle]);
+            withdraw(members[cycle-1]);
             paidcounter=0;
         } 
         
     }
-
     function withdraw(address _withdrawMember) public onlyGroupMember{
-        require(address(this).balance >= goal, "Goal had not been reached");
+        //require(address(this).balance >= goal, "Goal had not been reached");
+        require(USDC.balanceOf(address(this)) >= goal, "Goal had not been reached");
         require(groupMembers[_withdrawMember], "This is not a Group member!");
         uint256 balance = address(this).balance;
         require(balance > 0, "No balance to withdraw");
@@ -88,19 +99,31 @@ contract Crowdfunding {
         delete keys;
     }
 
+    function checkUSDCBalance(address _address) public view returns (uint256) {
+        return USDC.balanceOf(_address);
+    }
+
+
     function getContractBalance() public view returns (uint256) {
-        return address(this).balance;
+        //return address(this).balance;
+        return USDC.balanceOf(address(this));
     }
 
     function getMemberCycleStatus(uint256 _cycle) public view returns (bool) {
         return cycleCompleted[msg.sender][_cycle];
     }
 
-    function addGroupMember(address _newMember) public {
+    function addGroupMember(address _newMember, string memory _groupCode) public {
+        require(
+            keccak256(abi.encodePacked(_groupCode)) == keccak256(abi.encodePacked(groupcode)),
+            "Invalid Group Code"
+        );
         require(_newMember != address(0), "Invalid address");
         require(!groupMembers[_newMember], "Address is already a member");
         require(memberCount < groupSize, "Group size limit reached");
         groupMembers[_newMember] = true;
+        members.push(_newMember);
+        memberIndex[_newMember] = members.length - 1;
         paidoutorder[order] = _newMember;
         order++;
         memberCount++;
@@ -111,8 +134,22 @@ contract Crowdfunding {
         require(groupMembers[_removemMember], "Address is not a member");
         require(memberCount >1 , "At least 1 member is required");
         groupMembers[_removemMember] = false;
+        uint256 index = memberIndex[_removemMember];
+        uint256 lastIndex = members.length - 1;
+         if (index != lastIndex) {
+            address lastMember = members[lastIndex];
+            members[index] = lastMember;
+            memberIndex[lastMember] = index; 
+        }
+        members.pop();
+        delete memberIndex[_removemMember];
         memberCount--;
     }
+    
+    function getGroupCode() public view onlyOwner returns (string memory) {
+        return groupcode;
+    }
+
 
     function isKeysArrayEmpty() public view returns (bool) {
         return keys.length == 0;
