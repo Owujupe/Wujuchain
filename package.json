@@ -19,7 +19,6 @@
     "sass": "^1.83.1",
     "thirdweb": "^5.89.0",
     "typescript": "^5.7.3",
-    "vite": "^6.0.7",
     "wagmi": "^2.14.11",
     "web-vitals": "^2.1.4"
   },
@@ -45,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "vite": "^8.0.3"
   }
 }
